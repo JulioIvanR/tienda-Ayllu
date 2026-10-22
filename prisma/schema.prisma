@@ -1,0 +1,98 @@
+// Prisma schema for Multi-Vendor Marketplace with WhatsApp redirection
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  VENDOR
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id                 String          @id @default(cuid())
+  email              String          @unique
+  name               String?
+  passwordHash       String?
+  role               Role            @default(VENDOR)
+  status             ApprovalStatus  @default(PENDING)
+  vendor             Vendor?
+  requestedCategories Category[]     @relation("CategoryRequestedBy")
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@map("users")
+}
+
+model Vendor {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  storeName      String
+  slug           String    @unique
+  description    String?   @db.Text
+  logoUrl        String?
+  bannerUrl      String?
+  whatsappNumber String    // Number formatted for wa.me link (e.g. 573001234567)
+  email          String?
+  phone          String?
+  address        String?
+  city           String?
+  products       Product[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([slug])
+  @@map("vendors")
+}
+
+model Category {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  description   String?        @db.Text
+  icon          String?        // Lucide icon name or emoji
+  status        ApprovalStatus @default(APPROVED)
+  requestedById String?
+  requestedBy   User?          @relation("CategoryRequestedBy", fields: [requestedById], references: [id], onDelete: SetNull)
+  products      Product[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([slug])
+  @@map("categories")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int      @default(0)
+  images      String[] @default([])
+  isActive    Boolean  @default(true)
+  vendorId    String
+  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+  @@index([vendorId])
+  @@index([categoryId])
+  @@map("products")
+}
