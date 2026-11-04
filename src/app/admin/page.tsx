@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Users, Store, Tag, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Users, Tag, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
 import prisma from "@/lib/prisma";
-import { MOCK_USERS, MOCK_CATEGORIES, MOCK_VENDORS } from "@/lib/mock-data";
+import { MOCK_USERS, MOCK_CATEGORIES } from "@/lib/mock-data";
 import { UsersTable } from "@/components/admin/UsersTable";
 import { CategoriesTable } from "@/components/admin/CategoriesTable";
 import { Card, CardContent } from "@/components/ui/Card";
@@ -35,7 +35,6 @@ async function getAdminOverview() {
       categories,
     };
   } catch (error) {
-    // Return mock data fallback
     return {
       stats: {
         totalUsers: MOCK_USERS.length,
@@ -56,10 +55,10 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2e5e4e]">
           Panel de Control Super Admin
         </h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-[#373737]/75">
           Supervisa y autoriza vendedores, tiendas y categorías globales en la plataforma.
         </p>
       </div>
@@ -69,12 +68,12 @@ export default async function AdminDashboardPage() {
         <Card>
           <CardContent className="p-0 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase text-slate-400">Total Usuarios</p>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">Total Usuarios</p>
+              <p className="text-2xl font-black text-[#2e5e4e] mt-1">
                 {data.stats.totalUsers}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center dark:bg-violet-950 dark:text-violet-400">
+            <div className="h-10 w-10 rounded-xl bg-[#2e5e4e]/15 text-[#2e5e4e] flex items-center justify-center">
               <Users className="h-5 w-5" />
             </div>
           </CardContent>
@@ -83,12 +82,12 @@ export default async function AdminDashboardPage() {
         <Card>
           <CardContent className="p-0 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase text-slate-400">Vendedores Pendientes</p>
-              <p className="text-2xl font-bold text-amber-600 mt-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">Vendedores Pendientes</p>
+              <p className="text-2xl font-black text-[#ca9029] mt-1">
                 {data.stats.pendingUsersCount}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center dark:bg-amber-950 dark:text-amber-400">
+            <div className="h-10 w-10 rounded-xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
               <Clock className="h-5 w-5" />
             </div>
           </CardContent>
@@ -97,12 +96,12 @@ export default async function AdminDashboardPage() {
         <Card>
           <CardContent className="p-0 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase text-slate-400">Categorías Globales</p>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">Categorías Globales</p>
+              <p className="text-2xl font-black text-[#5d3805] mt-1">
                 {data.stats.totalCategories}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center dark:bg-indigo-950 dark:text-indigo-400">
+            <div className="h-10 w-10 rounded-xl bg-[#a8bca8]/35 text-[#2e5e4e] flex items-center justify-center">
               <Tag className="h-5 w-5" />
             </div>
           </CardContent>
@@ -111,12 +110,12 @@ export default async function AdminDashboardPage() {
         <Card>
           <CardContent className="p-0 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase text-slate-400">Categorías Solicitadas</p>
-              <p className="text-2xl font-bold text-violet-600 mt-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">Categorías Solicitadas</p>
+              <p className="text-2xl font-black text-[#ca9029] mt-1">
                 {data.stats.pendingCategoriesCount}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center dark:bg-violet-950 dark:text-violet-400">
+            <div className="h-10 w-10 rounded-xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
               <CheckCircle2 className="h-5 w-5" />
             </div>
           </CardContent>
@@ -127,16 +126,16 @@ export default async function AdminDashboardPage() {
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+            <h2 className="text-lg font-bold text-[#5d3805]">
               Gestión de Aprobación de Usuarios
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#373737]/75">
               Aprueba o suspende cuentas de vendedores para permitirles publicar productos.
             </p>
           </div>
           <Link
             href="/admin/usuarios"
-            className="text-xs font-semibold text-violet-600 hover:text-violet-700 flex items-center gap-1"
+            className="text-xs font-bold text-[#ca9029] hover:underline flex items-center gap-1"
           >
             <span>Ver todo</span>
             <ArrowRight className="h-3 w-3" />
@@ -150,16 +149,16 @@ export default async function AdminDashboardPage() {
       <section className="space-y-4 pt-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+            <h2 className="text-lg font-bold text-[#5d3805]">
               Categorías de Productos
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#373737]/75">
               Revisa categorías solicitadas por vendedores o agrega nuevas categorías globales.
             </p>
           </div>
           <Link
             href="/admin/categorias"
-            className="text-xs font-semibold text-violet-600 hover:text-violet-700 flex items-center gap-1"
+            className="text-xs font-bold text-[#ca9029] hover:underline flex items-center gap-1"
           >
             <span>Gestionar categorías</span>
             <ArrowRight className="h-3 w-3" />

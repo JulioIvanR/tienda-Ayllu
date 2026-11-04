@@ -1,4 +1,4 @@
-# 🛒 Vendly — Tienda Multivendedor con Redirección a WhatsApp
+# 🛒 Tienda AYLLU — Tienda Multivendedor con Redirección a WhatsApp
 
 Plataforma Fullstack de comercio electrónico multivendedor construida con **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, **Lucide Icons** y **Prisma ORM (PostgreSQL)**, diseñada para canalizar pedidos y conversiones directamente a **WhatsApp (`wa.me`)** sin comisiones ni fricciones.
 
@@ -72,7 +72,7 @@ Ubicado en [`src/lib/whatsapp.ts`](src/lib/whatsapp.ts), genera dinámicamente e
 
 ```text
 ¡Hola Café Origen & Artesanías! 👋
-Me gustaría realizar un pedido del siguiente producto:
+Vengo de Tienda AYLLU y me gustaría realizar un pedido del siguiente producto:
 
 🛍️ Producto: Café Especial Variedad Geisha 500g
 🔢 Cantidad: 2

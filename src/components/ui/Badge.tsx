@@ -12,12 +12,12 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variantStyles = {
-    default: "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200",
-    success: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800",
-    warning: "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800",
-    danger: "bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200 dark:border-rose-800",
-    info: "bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800",
-    outline: "border border-slate-300 text-slate-700 dark:border-slate-700 dark:text-slate-300",
+    default: "bg-[#f1e7d5] text-[#373737] border border-[#dfd2be]",
+    success: "bg-[#a8bca8]/35 text-[#2e5e4e] border border-[#a8bca8] font-semibold",
+    warning: "bg-[#ca9029]/20 text-[#5d3805] border border-[#ca9029]/50 font-semibold",
+    danger: "bg-rose-100 text-rose-800 border border-rose-300",
+    info: "bg-[#a8bca8]/40 text-[#2e5e4e] border border-[#a8bca8]",
+    outline: "border border-[#dfd2be] text-[#373737]",
   };
 
   return (

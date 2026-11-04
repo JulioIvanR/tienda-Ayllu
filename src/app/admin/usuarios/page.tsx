@@ -19,10 +19,10 @@ export default async function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-[#2e5e4e]">
           Aprobación de Vendedores y Usuarios
         </h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-[#373737]/75">
           Gestiona las solicitudes de alta de nuevos vendedores en la plataforma.
         </p>
       </div>

@@ -22,17 +22,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const variantStyles = {
       primary:
-        "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm focus-visible:ring-indigo-500",
+        "bg-[#ca9029] text-white hover:bg-[#b57f22] shadow-sm font-semibold focus-visible:ring-[#ca9029] active:scale-[0.99]",
       whatsapp:
-        "bg-[#25D366] text-white hover:bg-[#20bd5a] shadow-sm font-semibold focus-visible:ring-[#25D366]",
+        "bg-[#25D366] text-white hover:bg-[#20bd5a] shadow-sm font-semibold focus-visible:ring-[#25D366] active:scale-[0.99]",
       secondary:
-        "bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700",
+        "bg-[#a8bca8]/30 text-[#2e5e4e] hover:bg-[#a8bca8]/50 border border-[#a8bca8]/70 font-semibold focus-visible:ring-[#a8bca8]",
       outline:
-        "border border-slate-300 bg-transparent text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800",
+        "border border-[#dfd2be] bg-white/70 text-[#373737] hover:bg-[#f1e7d5] hover:text-[#2e5e4e]",
       danger:
-        "bg-rose-600 text-white hover:bg-rose-700 shadow-sm focus-visible:ring-rose-500",
+        "bg-rose-700 text-white hover:bg-rose-800 shadow-sm focus-visible:ring-rose-500",
       ghost:
-        "bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100",
+        "bg-transparent text-[#373737] hover:bg-[#a8bca8]/20 hover:text-[#2e5e4e]",
     };
 
     const sizeStyles = {

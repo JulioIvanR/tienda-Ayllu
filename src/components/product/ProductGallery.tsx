@@ -19,7 +19,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Main Image Display */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+      <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-[#dfd2be] bg-[#fbf7ee] shadow-sm">
         <img
           src={validImages[selectedIndex]}
           alt={title}
@@ -37,7 +37,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
               className={cn(
                 "relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all cursor-pointer",
                 selectedIndex === idx
-                  ? "border-emerald-500 ring-2 ring-emerald-500/30"
+                  ? "border-[#ca9029] ring-2 ring-[#ca9029]/30"
                   : "border-transparent opacity-70 hover:opacity-100"
               )}
             >

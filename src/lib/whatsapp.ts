@@ -23,7 +23,7 @@ export function buildWhatsAppOrderUrl(payload: WhatsAppOrderPayload): string {
 
   const lines = [
     `¡Hola *${storeName}*! 👋`,
-    `Me gustaría realizar un pedido del siguiente producto:`,
+    `Vengo de Tienda AYLLU y me gustaría realizar un pedido del siguiente producto:`,
     ``,
     `🛍️ *Producto:* ${productTitle}`,
     `🔢 *Cantidad:* ${quantity}`,
@@ -52,6 +52,6 @@ export function buildWhatsAppStoreInquiryUrl(
   storeName: string
 ): string {
   const phone = cleanPhoneNumber(whatsappNumber);
-  const message = `¡Hola *${storeName}*! 👋 Vi su tienda y me gustaría consultar información sobre sus productos.`;
+  const message = `¡Hola *${storeName}*! 👋 Vengo de Tienda AYLLU y me gustaría consultar información sobre sus productos.`;
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }

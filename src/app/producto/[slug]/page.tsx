@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowLeft, Store, Tag, Check, PackageCheck, AlertCircle } from "lucide-react";
+import { Store, Tag, PackageCheck, AlertCircle } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { MOCK_PRODUCTS, MOCK_VENDORS, MOCK_CATEGORIES } from "@/lib/mock-data";
 import { ProductGallery } from "@/components/product/ProductGallery";
@@ -87,12 +87,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Producto no encontrado | Vendly",
+      title: "Producto no encontrado | Tienda AYLLU",
     };
   }
 
   return {
-    title: `${data.product.title} - ${data.vendor.storeName} | Vendly`,
+    title: `${data.product.title} - ${data.vendor.storeName} | Tienda AYLLU`,
     description: data.product.description.slice(0, 160),
     openGraph: {
       title: data.product.title,
@@ -115,19 +115,19 @@ export default async function ProductDetailPage({ params }: PageProps) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
       {/* Breadcrumb & Navigation */}
-      <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
-        <Link href="/" className="hover:text-slate-900 dark:hover:text-white">
+      <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#373737]/75">
+        <Link href="/" className="hover:text-[#ca9029] transition-colors">
           Inicio
         </Link>
         <span>/</span>
         <Link
           href={`/vendedor/${vendor.slug}`}
-          className="hover:text-slate-900 dark:hover:text-white font-medium text-emerald-600 dark:text-emerald-400"
+          className="hover:underline font-semibold text-[#ca9029]"
         >
           {vendor.storeName}
         </Link>
         <span>/</span>
-        <span className="text-slate-800 dark:text-slate-200 truncate max-w-xs">
+        <span className="text-[#5d3805] font-medium truncate max-w-xs">
           {product.title}
         </span>
       </nav>
@@ -144,16 +144,16 @@ export default async function ProductDetailPage({ params }: PageProps) {
           {/* Vendor Pill */}
           <Link
             href={`/vendedor/${vendor.slug}`}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs hover:border-emerald-300 hover:text-emerald-600 transition-colors dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+            className="inline-flex items-center gap-2 rounded-full border border-[#dfd2be] bg-[#fdfbf6] px-3.5 py-1.5 text-xs font-semibold text-[#373737] shadow-2xs hover:border-[#ca9029] hover:text-[#ca9029] transition-colors"
           >
-            <Store className="h-3.5 w-3.5 text-emerald-600" />
-            <span>Vendido por: <strong>{vendor.storeName}</strong></span>
+            <Store className="h-3.5 w-3.5 text-[#2e5e4e]" />
+            <span>Vendido por: <strong className="text-[#5d3805]">{vendor.storeName}</strong></span>
           </Link>
 
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Badge variant="outline">
-                <Tag className="h-3 w-3 mr-1 text-slate-500" />
+              <Badge variant="outline" className="border-[#dfd2be] text-[#373737]">
+                <Tag className="h-3 w-3 mr-1 text-[#5d3805]" />
                 {category.name}
               </Badge>
               {product.stock > 0 ? (
@@ -169,26 +169,26 @@ export default async function ProductDetailPage({ params }: PageProps) {
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-snug">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2e5e4e] tracking-tight leading-snug">
               {product.title}
             </h1>
 
             <div className="mt-4 flex items-baseline gap-3">
-              <span className="text-3xl font-black text-slate-900 dark:text-white">
+              <span className="text-3xl font-black text-[#5d3805]">
                 {formatCurrency(Number(product.price))}
               </span>
-              <span className="text-xs text-slate-400 font-medium">
+              <span className="text-xs text-[#373737]/65 font-medium">
                 Precio unitario sugerido
               </span>
             </div>
           </div>
 
           {/* Description */}
-          <div className="border-t border-slate-200/80 pt-4 dark:border-slate-800">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+          <div className="border-t border-[#dfd2be] pt-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#5d3805] mb-2">
               Descripción del producto
             </h3>
-            <p className="text-sm text-slate-600 leading-relaxed dark:text-slate-300 whitespace-pre-line">
+            <p className="text-sm text-[#373737]/90 leading-relaxed whitespace-pre-line">
               {product.description}
             </p>
           </div>
@@ -202,14 +202,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       {/* Related Products from the same Vendor */}
       {relatedProducts.length > 0 && (
-        <section className="border-t border-slate-200 pt-12 dark:border-slate-800">
+        <section className="border-t border-[#dfd2be] pt-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#2e5e4e]">
               Más de {vendor.storeName}
             </h2>
             <Link
               href={`/vendedor/${vendor.slug}`}
-              className="text-xs sm:text-sm font-semibold text-emerald-600 hover:underline"
+              className="text-xs sm:text-sm font-bold text-[#ca9029] hover:underline"
             >
               Ver toda la tienda &rarr;
             </Link>

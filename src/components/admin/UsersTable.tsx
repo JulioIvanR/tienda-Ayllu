@@ -4,7 +4,7 @@ import { useState } from "react";
 import { User, ApprovalStatus } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Check, X, Shield, Store, Clock } from "lucide-react";
+import { Check, X, Shield, Store } from "lucide-react";
 
 interface UsersTableProps {
   initialUsers: User[];
@@ -31,10 +31,10 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900">
+    <div className="overflow-hidden rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] shadow-xs">
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-600 dark:text-slate-300">
-          <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
+        <table className="w-full text-left text-sm text-[#373737]">
+          <thead className="bg-[#f1e7d5] text-xs font-bold uppercase tracking-wider text-[#5d3805]">
             <tr>
               <th className="px-6 py-4">Usuario</th>
               <th className="px-6 py-4">Rol</th>
@@ -43,34 +43,34 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
               <th className="px-6 py-4 text-right">Acciones de Aprobación</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-[#dfd2be]">
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40">
+              <tr key={user.id} className="hover:bg-[#f1e7d5]/40 transition-colors">
                 <td className="px-6 py-4">
                   <div>
-                    <span className="font-semibold text-slate-900 dark:text-white block">
+                    <span className="font-bold text-[#2e5e4e] block">
                       {user.name || "Sin nombre"}
                     </span>
-                    <span className="text-xs text-slate-400">{user.email}</span>
+                    <span className="text-xs text-[#373737]/65">{user.email}</span>
                   </div>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-1.5">
                     {user.role === "SUPER_ADMIN" ? (
                       <>
-                        <Shield className="h-4 w-4 text-violet-600" />
-                        <span className="font-medium text-violet-600 text-xs">Super Admin</span>
+                        <Shield className="h-4 w-4 text-[#2e5e4e]" />
+                        <span className="font-bold text-[#2e5e4e] text-xs">Super Admin</span>
                       </>
                     ) : (
                       <>
-                        <Store className="h-4 w-4 text-indigo-600" />
-                        <span className="font-medium text-indigo-600 text-xs">Vendedor</span>
+                        <Store className="h-4 w-4 text-[#ca9029]" />
+                        <span className="font-bold text-[#ca9029] text-xs">Vendedor</span>
                       </>
                     )}
                   </div>
                 </td>
                 <td className="px-6 py-4">{getStatusBadge(user.status)}</td>
-                <td className="px-6 py-4 text-xs text-slate-400">
+                <td className="px-6 py-4 text-xs text-[#373737]/65 font-medium">
                   {new Date(user.createdAt).toLocaleDateString("es-ES", {
                     year: "numeric",
                     month: "short",
@@ -82,7 +82,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                     <div className="flex items-center justify-end gap-2">
                       <Button
                         size="sm"
-                        variant={user.status === "APPROVED" ? "secondary" : "whatsapp"}
+                        variant={user.status === "APPROVED" ? "outline" : "primary"}
                         disabled={user.status === "APPROVED"}
                         onClick={() => handleStatusChange(user.id, "APPROVED")}
                         className="text-xs"
@@ -92,7 +92,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                       </Button>
                       <Button
                         size="sm"
-                        variant={user.status === "REJECTED" ? "secondary" : "danger"}
+                        variant={user.status === "REJECTED" ? "outline" : "danger"}
                         disabled={user.status === "REJECTED"}
                         onClick={() => handleStatusChange(user.id, "REJECTED")}
                         className="text-xs"
@@ -102,7 +102,7 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                       </Button>
                     </div>
                   ) : (
-                    <span className="text-xs text-slate-400 italic">Acción bloqueada</span>
+                    <span className="text-xs text-[#373737]/50 italic">Acción bloqueada</span>
                   )}
                 </td>
               </tr>

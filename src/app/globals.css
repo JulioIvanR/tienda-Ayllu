@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-body: #373737;
+  --color-brand-title: #2e5e4e;
+  --color-brand-title2: #5d3805;
+  --color-brand-accent: #ca9029;
+  --color-brand-accent-hover: #b57f22;
+  --color-brand-secondary: #a8bca8;
+  --color-brand-bg: #f1e7d5;
+  --color-brand-surface: #fcf8f0;
+  --color-brand-card: #ffffff;
+  --color-brand-border: #dfd2be;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f1e7d5;
+  --foreground: #373737;
+  --title-primary: #2e5e4e;
+  --title-secondary: #5d3805;
+  --color-accent: #ca9029;
+  --color-secondary: #a8bca8;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* Headings base styles honoring user palette */
+h1 {
+  color: #2e5e4e;
+}
+
+h2 {
+  color: #2e5e4e;
+}
+
+h3 {
+  color: #5d3805;
+}
+
+h4, h5, h6 {
+  color: #5d3805;
+}
+
+::selection {
+  background-color: #ca9029;
+  color: #ffffff;
 }

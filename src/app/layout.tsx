@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vendly | Plataforma Multivendedor con Checkout WhatsApp",
+  title: "Tienda AYLLU | Plataforma Multivendedor con Checkout WhatsApp",
   description:
     "Marketplace multivendedor con catálogos dinámicos y redirección instantánea de pedidos a WhatsApp (wa.me).",
 };
@@ -30,7 +30,7 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans">
+      <body className="min-h-full flex flex-col bg-[#f1e7d5] text-[#373737] font-sans">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

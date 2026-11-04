@@ -19,10 +19,10 @@ export default async function AdminCategoriesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-[#2e5e4e]">
           Gestión Global de Categorías
         </h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-[#373737]/75">
           Crea nuevas categorías oficiales o aprueba las categorías solicitadas por los vendedores.
         </p>
       </div>

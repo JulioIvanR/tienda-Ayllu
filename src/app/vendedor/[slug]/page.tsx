@@ -74,13 +74,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Tienda no encontrada | Vendly",
+      title: "Tienda no encontrada | Tienda AYLLU",
     };
   }
 
   return {
     title: `${data.vendor.storeName} | Tienda Oficial`,
-    description: data.vendor.description || `Catálogo oficial de ${data.vendor.storeName} en Vendly.`,
+    description: data.vendor.description || `Catálogo oficial de ${data.vendor.storeName} en Tienda AYLLU.`,
   };
 }
 
