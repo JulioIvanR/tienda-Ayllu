@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         },
         { status: 201 }
       );
-    } catch (dbError: any) {
+    } catch (dbError) {
       console.warn("Base de datos no disponible, guardando categoría en memoria local:", dbError.message);
 
       const simulatedCategory = {
