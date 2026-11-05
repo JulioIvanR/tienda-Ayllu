@@ -266,26 +266,28 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                         {cat.status === "PENDING" && (
                           <>
                             <Button
-                              size="sm"
+                              size="icon"
                               variant="primary"
                               onClick={() => handleStatusChange(cat.id, "APPROVED")}
                               isLoading={updatingStatusId === cat.id}
                               disabled={updatingStatusId === cat.id}
-                              className="text-xs"
+                              title="Aprobar categoría"
+                              aria-label="Aprobar categoría"
+                              className="w-8 h-8 p-2 flex items-center justify-center rounded-lg"
                             >
-                              <Check className="h-3.5 w-3.5 mr-1" />
-                              Aprobar
+                              <Check className="h-3.5 w-3.5" />
                             </Button>
                             <Button
-                              size="sm"
+                              size="icon"
                               variant="danger"
                               onClick={() => handleStatusChange(cat.id, "REJECTED")}
                               isLoading={updatingStatusId === cat.id}
                               disabled={updatingStatusId === cat.id}
-                              className="text-xs"
+                              title="Rechazar categoría"
+                              aria-label="Rechazar categoría"
+                              className="w-8 h-8 p-2 flex items-center justify-center rounded-lg"
                             >
-                              <X className="h-3.5 w-3.5 mr-1" />
-                              Rechazar
+                              <X className="h-3.5 w-3.5" />
                             </Button>
                           </>
                         )}
