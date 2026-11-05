@@ -1,20 +1,33 @@
-import prisma from "@/lib/prisma";
-import { MOCK_CATEGORIES } from "@/lib/mock-data";
+"use client";
+
+import { useState, useEffect } from "react";
 import { CategoriesTable } from "@/components/admin/CategoriesTable";
+import { MOCK_CATEGORIES } from "@/lib/mock-data";
 
-export const dynamic = "force-dynamic";
+export default function AdminCategoriesPage() {
+  const [categories, setCategories] = useState<typeof MOCK_CATEGORIES>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function AdminCategoriesPage() {
-  let categories = MOCK_CATEGORIES;
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        if (res.ok && data.categories) {
+          setCategories(data.categories);
+        } else {
+          setCategories(MOCK_CATEGORIES);
+        }
+      } catch (error) {
+        console.error("Error loading categories:", error);
+        setCategories(MOCK_CATEGORIES);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  try {
-    const dbCategories = await prisma.category.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    if (dbCategories.length > 0) {
-      categories = dbCategories as any;
-    }
-  } catch (error) {}
+    loadCategories();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -27,7 +40,13 @@ export default async function AdminCategoriesPage() {
         </p>
       </div>
 
-      <CategoriesTable initialCategories={categories} />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <p>Cargando categorías...</p>
+        </div>
+      ) : (
+        <CategoriesTable initialCategories={categories} />
+      )}
     </div>
   );
 }

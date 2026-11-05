@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const cleanName = name.trim();
     const slug = slugify(cleanName);
 
-    // Verificar si la categoría ya existe
+    // Verificar si la categoría ya existe (en BD o mock)
     try {
       const existing = await prisma.category.findFirst({
         where: {
@@ -50,7 +50,17 @@ export async function POST(req: NextRequest) {
         );
       }
     } catch {
-      // Si la BD no responde, continúa la ejecución hacia el mock
+      // Si la BD no responde, verificar en mock
+      const existingInMock = MOCK_CATEGORIES.some(
+        c => c.slug.toLowerCase() === slug.toLowerCase()
+      );
+      
+      if (existingInMock) {
+        return NextResponse.json(
+          { error: "Ya existe una categoría con ese nombre (en memoria local)." },
+          { status: 400 }
+        );
+      }
     }
 
     try {
