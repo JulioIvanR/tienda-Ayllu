@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Category, ApprovalStatus } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Check, X, Plus, Tag, Sparkles } from "lucide-react";
+import { Check, X, Plus, Tag, Sparkles, Pencil } from "lucide-react";
 import { slugify } from "@/lib/utils";
 
 interface CategoriesTableProps {
@@ -17,10 +17,53 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
   const [newName, setNewName] = useState("");
   const [newDesc, setNewDesc] = useState("");
 
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editDesc, setEditDesc] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
   const handleStatusChange = (categoryId: string, newStatus: ApprovalStatus) => {
     setCategories((prev) =>
       prev.map((c) => (c.id === categoryId ? { ...c, status: newStatus } : c))
     );
+  };
+
+  const handleEditClick = (category: Category) => {
+    setEditingCategory(category);
+    setEditName(category.name);
+    setEditDesc(category.description || "");
+    setIsEditing(true);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingCategory || !editName.trim()) return;
+
+    try {
+      const res = await fetch('/api/categories', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: editingCategory.id,
+          name: editName,
+          description: editDesc
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Error al actualizar la categoría");
+      }
+
+      setCategories(prev => prev.map(c => 
+        c.id === editingCategory.id ? data.category : c
+      ));
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error al editar categoría:", error);
+      alert(error.message || "Error al guardar cambios");
+    }
   };
 
   const handleCreate = (e: React.FormEvent) => {
@@ -186,30 +229,39 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                     )}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    {cat.status === "PENDING" ? (
-                      <div className="flex items-center justify-end gap-2">
-                        <Button
-                          size="sm"
-                          variant="primary"
-                          onClick={() => handleStatusChange(cat.id, "APPROVED")}
-                          className="text-xs"
-                        >
-                          <Check className="h-3.5 w-3.5 mr-1" />
-                          Aprobar
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          onClick={() => handleStatusChange(cat.id, "REJECTED")}
-                          className="text-xs"
-                        >
-                          <X className="h-3.5 w-3.5 mr-1" />
-                          Rechazar
-                        </Button>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-[#373737]/60 font-medium">Activa</span>
-                    )}
+                    <div className="flex items-center justify-end gap-2">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleEditClick(cat)}
+                        className="text-xs text-[#373737] hover:text-[#2e5e4e]"
+                      >
+                        <Pencil className="h-3.5 w-3.5 mr-1" />
+                        Editar
+                      </Button>
+                      {cat.status === "PENDING" && (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="primary"
+                            onClick={() => handleStatusChange(cat.id, "APPROVED")}
+                            className="text-xs"
+                          >
+                            <Check className="h-3.5 w-3.5 mr-1" />
+                            Aprobar
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="danger"
+                            onClick={() => handleStatusChange(cat.id, "REJECTED")}
+                            className="text-xs"
+                          >
+                            <X className="h-3.5 w-3.5 mr-1" />
+                            Rechazar
+                          </Button>
+                        </>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -218,5 +270,67 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
         </div>
       </div>
     </div>
+
+    {/* Modal de Edición */}
+    {isEditing && editingCategory && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-2xl p-6 w-full max-w-md">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-[#2e5e4e]">
+              Editar Categoría
+            </h3>
+            <button 
+              onClick={() => setIsEditing(false)}
+              className="text-[#373737]/60 hover:text-[#5d3805]"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          <form onSubmit={handleEditSubmit} className="space-y-4">
+            <div>
+              <label className="text-sm font-semibold text-[#373737] block mb-1">
+                Nombre *
+              </label>
+              <input
+                type="text"
+                required
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+                className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737]"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-[#373737] block mb-1">
+                Descripción
+              </label>
+              <textarea
+                rows={3}
+                value={editDesc}
+                onChange={(e) => setEditDesc(e.target.value)}
+                className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737]"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+              >
+                Guardar Cambios
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )}
   );
 }
