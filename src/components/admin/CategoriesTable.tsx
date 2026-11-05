@@ -159,16 +159,17 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                   </td>
                   <td className="px-6 py-4 text-xs">
                     {cat.requestedById ? (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-[#5d3805] bg-[#ca9029]/20 border border-[#ca9029]/40 px-2.5 py-1 rounded-md font-bold">
-                          Solicitada por Vendedor
-                        </span>
+                      <span 
+                        className="text-[#5d3805] bg-[#ca9029]/20 border border-[#ca9029]/40 px-2.5 py-1 rounded-md font-bold"
+                        suppressHydrationWarning={true}
+                      >
+                        Solicitada por Vendedor
                         {cat.requestedBy?.vendor?.storeName && (
-                          <span className="text-[#373737]/75 text-xs">
+                          <span className="block text-[#373737]/75 text-xs mt-1">
                             Tienda: {cat.requestedBy.vendor.storeName}
                           </span>
                         )}
-                      </div>
+                      </span>
                     ) : (
                       <span className="text-[#2e5e4e] bg-[#a8bca8]/25 border border-[#a8bca8]/60 px-2.5 py-1 rounded-md font-bold">
                         Creada por Admin
