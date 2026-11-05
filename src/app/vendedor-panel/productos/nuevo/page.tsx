@@ -147,7 +147,9 @@ export default function NewProductPage() {
       setCategories((prev) => [createdCat, ...prev]);
       setCategoryId(createdCat.id);
       setCatRequestMessage(
-        `¡Categoría "${createdCat.name}" solicitada! Ha sido seleccionada para tu producto y queda pendiente de aprobación por el Super Administrador.`
+        `¡Categoría "${createdCat.name}" solicitada con éxito! ` +
+        `Ha sido seleccionada para tu producto y quedará visible una vez sea aprobada por el administrador. ` +
+        `Recibirás una notificación cuando esto ocurra.`
       );
       setNewCatName("");
       setNewCatDesc("");

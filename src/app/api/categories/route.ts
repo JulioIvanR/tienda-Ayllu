@@ -31,23 +31,44 @@ export async function POST(req: NextRequest) {
     }
 
     const cleanName = name.trim();
-    const slug = slugify(cleanName) + "-" + Date.now().toString().slice(-4);
+    const slug = slugify(cleanName);
 
-    try {
-      // Find default vendor user to link requestedById
-      const user = await prisma.user.findFirst({
-        where: { role: "VENDOR" },
-      });
+    // Verify if category already exists
+    const existing = await prisma.category.findFirst({
+      where: {
+        slug: { equals: slug, mode: "insensitive" }
+      }
+    });
 
-      const newCategory = await prisma.category.create({
-        data: {
-          name: cleanName,
-          slug,
-          description: description?.trim() || null,
-          status: "PENDING", // Pending approval by Super Admin
-          requestedById: user ? user.id : undefined,
-        },
-      });
+    if (existing) {
+      return NextResponse.json(
+        { error: "Ya existe una categoría con ese nombre." },
+        { status: 400 }
+      );
+    }
+
+    const newCategory = await prisma.category.create({
+      data: {
+        name: cleanName,
+        slug,
+        description: description?.trim() || null,
+        status: "PENDING",
+        requestedById: requestedById || null,
+      },
+      include: {
+        requestedBy: {
+          select: {
+            name: true,
+            email: true,
+            vendor: {
+              select: {
+                storeName: true
+              }
+            }
+          }
+        }
+      }
+    });
 
       return NextResponse.json(
         {
