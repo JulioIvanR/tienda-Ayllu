@@ -271,7 +271,7 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
       </div>
     </div>
 
-    { /* Modal de Edición */ }
+    {/*Modal de Edición*/}
     {isEditing && editingCategory && (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
         <div className="bg-white rounded-2xl p-6 w-full max-w-md">
