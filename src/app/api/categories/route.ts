@@ -103,6 +103,7 @@ export async function POST(req: NextRequest) {
         { status: 201 }
       );
     }
+  } catch (error) {
     console.error("Error al solicitar categoría:", error);
     return NextResponse.json(
       { error: "Error al procesar la solicitud de la categoría." },
