@@ -13,7 +13,9 @@ export async function GET() {
     if (dbCategories.length > 0) {
       return NextResponse.json({ categories: dbCategories });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error al obtener categorías de la BD:", error);
+  }
 
   return NextResponse.json({ categories: MOCK_CATEGORIES });
 }
@@ -33,18 +35,22 @@ export async function POST(req: NextRequest) {
     const cleanName = name.trim();
     const slug = slugify(cleanName);
 
-    // Verify if category already exists
-    const existing = await prisma.category.findFirst({
-      where: {
-        slug: { equals: slug, mode: "insensitive" }
-      }
-    });
+    // Verificar si la categoría ya existe
+    try {
+      const existing = await prisma.category.findFirst({
+        where: {
+          slug: { equals: slug, mode: "insensitive" },
+        },
+      });
 
-    if (existing) {
-      return NextResponse.json(
-        { error: "Ya existe una categoría con ese nombre." },
-        { status: 400 }
-      );
+      if (existing) {
+        return NextResponse.json(
+          { error: "Ya existe una categoría con ese nombre." },
+          { status: 400 }
+        );
+      }
+    } catch {
+      // Si la BD no responde, continúa la ejecución hacia el mock
     }
 
     try {
@@ -63,34 +69,38 @@ export async function POST(req: NextRequest) {
               email: true,
               vendor: {
                 select: {
-                  storeName: true
-                }
-              }
-            }
-          }
-        }
+                  storeName: true,
+                },
+              },
+            },
+          },
+        },
       });
 
       return NextResponse.json(
         {
           success: true,
           category: newCategory,
-          message: "Categoría solicitada con éxito. Pendiente de aprobación por el Super Administrador.",
+          message:
+            "Categoría solicitada con éxito. Pendiente de aprobación por el Super Administrador.",
         },
         { status: 201 }
       );
-    } catch (dbError) {
-      console.warn("Base de datos no disponible, guardando categoría en memoria local:", dbError.message);
+    } catch (dbError: any) {
+      console.warn(
+        "Base de datos no disponible, guardando categoría en memoria local:",
+        dbError?.message || dbError
+      );
 
-      const simulatedCategory = {
+      const simulatedCategory: any = {
         id: `cat_${Date.now()}`,
         name: cleanName,
         slug,
         description: description?.trim() || null,
-        status: "PENDING" as const,
-        requestedById: "usr_vendor_1",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        status: "PENDING",
+        requestedById: requestedById || "usr_vendor_1",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
       MOCK_CATEGORIES.unshift(simulatedCategory);
@@ -99,7 +109,8 @@ export async function POST(req: NextRequest) {
         {
           success: true,
           category: simulatedCategory,
-          message: "Categoría solicitada con éxito. Pendiente de aprobación por el Super Administrador.",
+          message:
+            "Categoría solicitada con éxito. Pendiente de aprobación por el Super Administrador.",
         },
         { status: 201 }
       );
