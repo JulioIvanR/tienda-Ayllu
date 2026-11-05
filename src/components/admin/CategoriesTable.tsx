@@ -22,10 +22,33 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
   const [editDesc, setEditDesc] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleStatusChange = (categoryId: string, newStatus: ApprovalStatus) => {
-    setCategories((prev) =>
-      prev.map((c) => (c.id === categoryId ? { ...c, status: newStatus } : c))
-    );
+  const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
+
+  const handleStatusChange = async (categoryId: string, newStatus: ApprovalStatus) => {
+    setUpdatingStatusId(categoryId);
+
+    try {
+      const res = await fetch(`/api/categories/${categoryId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "No se pudo actualizar el estado de la categoría.");
+      }
+
+      setCategories((prev) =>
+        prev.map((c) => (c.id === categoryId ? { ...c, ...data.category } : c))
+      );
+    } catch (error: any) {
+      console.error("Error al actualizar estado de categoría:", error);
+      alert(error?.message || "Error al actualizar el estado de la categoría.");
+    } finally {
+      setUpdatingStatusId(null);
+    }
   };
 
   const handleEditClick = (category: Category) => {
@@ -246,6 +269,8 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                               size="sm"
                               variant="primary"
                               onClick={() => handleStatusChange(cat.id, "APPROVED")}
+                              isLoading={updatingStatusId === cat.id}
+                              disabled={updatingStatusId === cat.id}
                               className="text-xs"
                             >
                               <Check className="h-3.5 w-3.5 mr-1" />
@@ -255,6 +280,8 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                               size="sm"
                               variant="danger"
                               onClick={() => handleStatusChange(cat.id, "REJECTED")}
+                              isLoading={updatingStatusId === cat.id}
+                              disabled={updatingStatusId === cat.id}
                               className="text-xs"
                             >
                               <X className="h-3.5 w-3.5 mr-1" />

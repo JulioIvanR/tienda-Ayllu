@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { MOCK_CATEGORIES } from "@/lib/mock-data";
+import { slugify } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
