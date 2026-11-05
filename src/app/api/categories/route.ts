@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, description } = body;
+    const { name, description, requestedById } = body;
 
     if (!name || !name.trim()) {
       return NextResponse.json(
@@ -47,28 +47,29 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newCategory = await prisma.category.create({
-      data: {
-        name: cleanName,
-        slug,
-        description: description?.trim() || null,
-        status: "PENDING",
-        requestedById: requestedById || null,
-      },
-      include: {
-        requestedBy: {
-          select: {
-            name: true,
-            email: true,
-            vendor: {
-              select: {
-                storeName: true
+    try {
+      const newCategory = await prisma.category.create({
+        data: {
+          name: cleanName,
+          slug,
+          description: description?.trim() || null,
+          status: "PENDING",
+          requestedById: requestedById || null,
+        },
+        include: {
+          requestedBy: {
+            select: {
+              name: true,
+              email: true,
+              vendor: {
+                select: {
+                  storeName: true
+                }
               }
             }
           }
         }
-      }
-    });
+      });
 
       return NextResponse.json(
         {
@@ -78,8 +79,8 @@ export async function POST(req: NextRequest) {
         },
         { status: 201 }
       );
-    } catch (error) {
-      console.warn("Base de datos no disponible, guardando categoría en memoria local:", error.message);
+    } catch (dbError) {
+      console.warn("Base de datos no disponible, guardando categoría en memoria local:", dbError.message);
 
       const simulatedCategory = {
         id: `cat_${Date.now()}`,
