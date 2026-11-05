@@ -78,8 +78,8 @@ export async function POST(req: NextRequest) {
         },
         { status: 201 }
       );
-    } catch (dbError) {
-      console.warn("Base de datos no disponible, guardando categoría en memoria local:", dbError.message);
+    } catch (error) {
+      console.warn("Base de datos no disponible, guardando categoría en memoria local:", error.message);
 
       const simulatedCategory = {
         id: `cat_${Date.now()}`,
@@ -103,7 +103,6 @@ export async function POST(req: NextRequest) {
         { status: 201 }
       );
     }
-  } catch (error) {
     console.error("Error al solicitar categoría:", error);
     return NextResponse.json(
       { error: "Error al procesar la solicitud de la categoría." },
