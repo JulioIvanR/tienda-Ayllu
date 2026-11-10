@@ -1,90 +1,65 @@
-import { PrismaClient, Role, ApprovalStatus } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Starting database seeding...");
+  console.log("🌱 Iniciando seed de la base de datos...");
 
-  // 1. Super Admin
-  const admin = await prisma.user.upsert({
-    where: { email: "admin@marketplace.com" },
+  // Hash de contraseña
+  const passwordHash = await bcrypt.hash("Aguila&Condor2026", 10);
+
+  // 1. Crear Super Admin
+  const superAdmin = await prisma.user.upsert({
+    where: { email: "admin@comunidadilumina.com" },
     update: {},
     create: {
-      email: "admin@marketplace.com",
-      name: "Administrador General",
-      role: Role.SUPER_ADMIN,
-      status: ApprovalStatus.APPROVED,
-    },
-  });
-  console.log(`✅ Admin created/verified: ${admin.email}`);
-
-  // 2. Vendor Users
-  const vendorUser1 = await prisma.user.upsert({
-    where: { email: "cafe@delvalle.com" },
-    update: {},
-    create: {
-      email: "cafe@delvalle.com",
-      name: "Carlos Restrepo",
-      role: Role.VENDOR,
-      status: ApprovalStatus.APPROVED,
+      email: "admin@comunidadilumina.com",
+      name: "nousadmin",
+      passwordHash: passwordHash,
+      role: "SUPER_ADMIN",
+      status: "APPROVED",
     },
   });
 
-  const vendorUser2 = await prisma.user.upsert({
-    where: { email: "tech@express.com" },
+  console.log("✅ Super Admin creado:", superAdmin.email);
+
+  // 2. Crear Vendor User
+  const vendorUser = await prisma.user.upsert({
+    where: { email: "info@comunidadilumina.com" },
     update: {},
     create: {
-      email: "tech@express.com",
-      name: "Lucía Gómez",
-      role: Role.VENDOR,
-      status: ApprovalStatus.APPROVED,
+      email: "info@comunidadilumina.com",
+      name: "tienda",
+      passwordHash: passwordHash,
+      role: "VENDOR",
+      status: "APPROVED",
     },
   });
 
-  // 3. Vendors Profile
-  const vendor1 = await prisma.vendor.upsert({
-    where: { slug: "cafe-origen" },
+  console.log("✅ Vendor creado:", vendorUser.email);
+
+  // 3. Crear Vendor Profile
+  const vendorProfile = await prisma.vendor.upsert({
+    where: { userId: vendorUser.id },
     update: {},
     create: {
-      userId: vendorUser1.id,
-      storeName: "Café Origen & Artesanías",
-      slug: "cafe-origen",
+      userId: vendorUser.id,
+      storeName: "Comunidad ILUMINA",
+      slug: "comunidad-ilumina",
       description:
-        "Café de especialidad cultivado en altura, tostado artesanalmente y productos gourmet directo de pequeños productores.",
-      logoUrl:
-        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200&h=200&fit=crop&crop=faces",
-      bannerUrl:
-        "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1200&h=350&fit=crop",
+        "Tienda oficial de la Comunidad ILUMINA - Productos y servicios del despertar",
       whatsappNumber: "573001234567",
-      email: "contacto@cafeorigen.com",
+      email: "info@comunidadilumina.com",
       phone: "+57 300 123 4567",
-      address: "Calle 10 # 43D-24, El Poblado",
-      city: "Medellín, Colombia",
+      address: "Calle Principal 123",
+      city: "Bogotá",
     },
   });
 
-  const vendor2 = await prisma.vendor.upsert({
-    where: { slug: "techstore-pro" },
-    update: {},
-    create: {
-      userId: vendorUser2.id,
-      storeName: "TechStore Pro",
-      slug: "techstore-pro",
-      description:
-        "Accesorios para smartphones, cargadores rápidos, gadgets de audio y periféricos para oficina en casa.",
-      logoUrl:
-        "https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=200&h=200&fit=crop&crop=faces",
-      bannerUrl:
-        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=350&fit=crop",
-      whatsappNumber: "573159876543",
-      email: "ventas@techstorepro.com",
-      phone: "+57 315 987 6543",
-      address: "Cra 15 # 85-30, Chicó",
-      city: "Bogotá, Colombia",
-    },
-  });
+  console.log("✅ Perfil de Vendor creado:", vendorProfile.storeName);
 
-  // 4. Categories
+  // 4. Crear Categorías
   const catCafe = await prisma.category.upsert({
     where: { slug: "cafe-gourmet" },
     update: {},
@@ -93,7 +68,7 @@ async function main() {
       slug: "cafe-gourmet",
       description: "Granos selectos, mieles y delicias artesanales",
       icon: "Coffee",
-      status: ApprovalStatus.APPROVED,
+      status: "APPROVED",
     },
   });
 
@@ -105,11 +80,13 @@ async function main() {
       slug: "tecnologia-gadgets",
       description: "Accesorios, audio y conectividad",
       icon: "Headphones",
-      status: ApprovalStatus.APPROVED,
+      status: "APPROVED",
     },
   });
 
-  // 5. Products
+  console.log("✅ Categorías creadas");
+
+  // 5. Crear Productos
   await prisma.product.upsert({
     where: { slug: "cafe-especial-geisha-500g" },
     update: {},
@@ -125,7 +102,7 @@ async function main() {
         "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=800&fit=crop",
       ],
       isActive: true,
-      vendorId: vendor1.id,
+      vendorId: vendorProfile.id,
       categoryId: catCafe.id,
     },
   });
@@ -144,7 +121,7 @@ async function main() {
         "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&h=800&fit=crop",
       ],
       isActive: true,
-      vendorId: vendor1.id,
+      vendorId: vendorProfile.id,
       categoryId: catCafe.id,
     },
   });
@@ -163,17 +140,19 @@ async function main() {
         "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=800&fit=crop",
       ],
       isActive: true,
-      vendorId: vendor2.id,
+      vendorId: vendorProfile.id,
       categoryId: catTech.id,
     },
   });
 
-  console.log("🎉 Database seeded successfully!");
+  console.log("✅ Productos creados");
+
+  console.log("🎉 Seed completado exitosamente!");
 }
 
 main()
   .catch((e) => {
-    console.error("Error seeding database:", e);
+    console.error("❌ Error en seed:", e);
     process.exit(1);
   })
   .finally(async () => {
