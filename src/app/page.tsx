@@ -25,42 +25,21 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#2e5e4e] leading-[1.1]">
-              Tu tienda multivendedor con{" "}
-              <span className="text-[#ca9029]">
-                checkout directo a WhatsApp
-              </span>
+              Nadie llega a ser quien es por sí solo
             </h1>
 
             <p className="text-lg text-[#373737] leading-relaxed">
-              Permite que múltiples vendedores creen su propio catálogo personalizado y
-              reciban órdenes de compra directamente en su WhatsApp (wa.me) con el detalle del producto,
-              cantidad y precio calculado al instante.
+              En el Ayllu ILUMINA, quienes caminan el despertar comparten lo que su proceso ha hecho florecer; al elegir lo que otro creó, sostienes su camino, y él sostiene el tuyo.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
-                href="/vendedor/cafe-origen"
+                href="/#productos"
                 className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-6 py-3.5 text-sm font-bold shadow-md shadow-[#ca9029]/25 transition-all hover:scale-[1.02]"
               >
                 <ShoppingBag className="h-4 w-4" />
-                <span>Explorar Mini-Tienda Demo</span>
+                <span>Ingresar a mi tienda</span>
                 <ArrowRight className="h-4 w-4" />
-              </Link>
-
-              <Link
-                href="/vendedor-panel"
-                className="inline-flex items-center gap-2 rounded-2xl border border-[#dfd2be] bg-white hover:bg-[#f1e7d5] text-[#2e5e4e] px-6 py-3.5 text-sm font-bold shadow-2xs transition-all"
-              >
-                <Store className="h-4 w-4 text-[#5d3805]" />
-                <span>Acceder a Panel Vendedor</span>
-              </Link>
-
-              <Link
-                href="/admin"
-                className="inline-flex items-center gap-2 rounded-2xl border border-[#a8bca8] bg-[#a8bca8]/20 hover:bg-[#a8bca8]/35 text-[#5d3805] px-5 py-3.5 text-sm font-bold transition-all"
-              >
-                <ShieldCheck className="h-4 w-4 text-[#2e5e4e]" />
-                <span>Super Admin</span>
               </Link>
             </div>
           </div>
