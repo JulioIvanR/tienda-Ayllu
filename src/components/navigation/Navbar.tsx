@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  Store,
   ShieldCheck,
   ShoppingBag,
   LayoutDashboard,
@@ -31,18 +30,21 @@ export function Navbar() {
     const checkSession = async () => {
       try {
         const response = await fetch("/api/auth/me", {
-          method: "GET",
           credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
-          setUser(data.user);
+          if (data.authenticated && data.user) {
+            setUser(data.user);
+          } else {
+            setUser(null);
+          }
         } else {
           setUser(null);
         }
       } catch (error) {
-        console.error("Error verificando sesión:", error);
+        console.error("Error al verificar sesión:", error);
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -71,18 +73,15 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b border-[#dfd2be] bg-[#fcf8f0]/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2e5e4e] text-white shadow-md shadow-[#2e5e4e]/25 group-hover:scale-105 transition-transform">
-            <Store className="h-5 w-5" />
-          </div>
-          <div>
-            <span className="font-bold text-lg tracking-tight text-[#2e5e4e]">
-              Tienda AYLLU
-            </span>
-            <span className="ml-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#a8bca8]/30 text-[#2e5e4e] border border-[#a8bca8]/60">
-              WhatsApp Direct
-            </span>
-          </div>
+        <Link href="/" className="flex items-center gap-3 group">
+          <img
+            src="https://res.cloudinary.com/jwoctsqu/image/upload/v1794364409/Logo_Ilumina_Escuela_Horizontal_OK.webp"
+            alt="Logo Ilumina"
+            className="h-9 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+          />
+          <span className="font-bold text-lg tracking-tight text-[#2e5e4e]">
+            Tienda AYLLU
+          </span>
         </Link>
 
         {/* Navigation Links */}

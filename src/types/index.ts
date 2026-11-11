@@ -40,6 +40,7 @@ export interface Category {
   icon?: string | null;
   status: ApprovalStatus;
   requestedById?: string | null;
+  requestedBy?: (User & { vendor?: Vendor | null }) | null;
   createdAt: Date | string;
   updatedAt: Date | string;
   products?: Product[];

@@ -1,7 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import * as dotenv from "dotenv";
 
-const prisma = new PrismaClient();
+dotenv.config();
+
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DIRECT_URL || process.env.DATABASE_URL,
+    },
+  },
+});
 
 async function main() {
   console.log("🌱 Iniciando seed de la base de datos...");
@@ -21,8 +30,7 @@ async function main() {
       status: "APPROVED",
     },
   });
-
-  console.log("✅ Super Admin creado:", superAdmin.email);
+  console.log("✅ Super Admin creado con éxito:", superAdmin.email);
 
   // 2. Crear Vendor User
   const vendorUser = await prisma.user.upsert({
