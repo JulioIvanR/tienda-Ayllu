@@ -1,8 +1,5 @@
 import Link from "next/link";
 import {
-  MessageCircle,
-  Store,
-  ShieldCheck,
   ShoppingBag,
   ArrowRight,
   Sparkles,
@@ -46,47 +43,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Feature Highlights */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 shadow-xs">
-            <div className="h-10 w-10 rounded-xl bg-[#ca9029]/20 text-[#ca9029] flex items-center justify-center mb-4">
-              <MessageCircle className="h-5 w-5" />
-            </div>
-            <h3 className="font-bold text-[#5d3805] text-lg">
-              Venta Directa por WhatsApp
-            </h3>
-            <p className="mt-2 text-sm text-[#373737]/85 leading-relaxed">
-              Sin pasarelas de pago engorrosas ni comisiones fijas. El cliente arma su pedido y abre una conversación pre-llenada con el vendedor.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 shadow-xs">
-            <div className="h-10 w-10 rounded-xl bg-[#2e5e4e]/15 text-[#2e5e4e] flex items-center justify-center mb-4">
-              <Store className="h-5 w-5" />
-            </div>
-            <h3 className="font-bold text-[#5d3805] text-lg">
-              Mini-tiendas con Slug Único
-            </h3>
-            <p className="mt-2 text-sm text-[#373737]/85 leading-relaxed">
-              Cada vendedor cuenta con su propia URL personalizada (<code className="text-xs bg-[#f1e7d5] border border-[#dfd2be] text-[#5d3805] px-1.5 py-0.5 rounded font-mono">/vendedor/[slug]</code>), banner, datos de contacto y catálogo segmentado.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 shadow-xs">
-            <div className="h-10 w-10 rounded-xl bg-[#a8bca8]/35 text-[#2e5e4e] flex items-center justify-center mb-4">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <h3 className="font-bold text-[#5d3805] text-lg">
-              Gobernanza Super Admin
-            </h3>
-            <p className="mt-2 text-sm text-[#373737]/85 leading-relaxed">
-              Control de calidad con flujo de aprobación para vendedores y categorías globales antes de habilitar su publicación en la plataforma.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Featured Stores */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-6">
@@ -117,8 +73,8 @@ export default function HomePage() {
                 )}
               </div>
               <div className="p-5">
-                <div className="flex items-center gap-3 -mt-10 mb-3">
-                  <div className="h-14 w-14 rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-white shrink-0">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="-mt-11 h-14 w-14 rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-white shrink-0">
                     {vendor.logoUrl ? (
                       <img
                         src={vendor.logoUrl}
@@ -131,11 +87,11 @@ export default function HomePage() {
                       </div>
                     )}
                   </div>
-                  <div>
-                    <h3 className="font-bold text-[#5d3805] text-base group-hover:text-[#ca9029] transition-colors">
+                  <div className="pt-2 min-w-0 flex-1">
+                    <h3 className="font-bold text-[#5d3805] text-base group-hover:text-[#ca9029] transition-colors leading-snug">
                       {vendor.storeName}
                     </h3>
-                    <p className="text-xs text-[#373737]/65">/{vendor.slug}</p>
+                    <p className="text-xs text-[#373737]/65 mt-0.5">/{vendor.slug}</p>
                   </div>
                 </div>
 
