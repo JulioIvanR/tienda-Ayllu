@@ -1,27 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AlertCircle, Loader2, CheckCircle, UserPlus } from "lucide-react";
 
-interface InvitationData {
-  token: string;
-  email: string | null;
-  role: string;
-  expiresAt: string;
-}
-
 export default function RegistroPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-
-  const [invitation, setInvitation] = useState<InvitationData | null>(null);
-  const [isValidating, setIsValidating] = useState(true);
-  const [validationError, setValidationError] = useState("");
 
   const [name, setName] = useState("");
+  const [storeName, setStoreName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -29,47 +17,13 @@ export default function RegistroPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Validar token al cargar
-  useEffect(() => {
-    const validateToken = async () => {
-      if (!token) {
-        setValidationError("Token no proporcionado. Acceso denegado.");
-        setIsValidating(false);
-        return;
-      }
-
-      try {
-        const response = await fetch(`/api/invitations/validate?token=${token}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-          setValidationError(data.error || "Invitación inválida o expirada.");
-          setIsValidating(false);
-          return;
-        }
-
-        setInvitation(data.invitation);
-        if (data.invitation.email) {
-          setEmail(data.invitation.email);
-        }
-      } catch (err) {
-        console.error("Error validando token:", err);
-        setValidationError("Error al validar la invitación.");
-      } finally {
-        setIsValidating(false);
-      }
-    };
-
-    validateToken();
-  }, [token]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
     // Validaciones
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !storeName || !email || !password || !confirmPassword) {
       setError("Todos los campos son requeridos.");
       setIsLoading(false);
       return;
@@ -95,10 +49,11 @@ export default function RegistroPage() {
         },
         body: JSON.stringify({
           name,
+          storeName,
           email,
           password,
-          token,
-          role: invitation?.role || "VENDOR",
+          role: "VENDOR",
+          approved: false,
         }),
         credentials: "include",
       });
@@ -113,54 +68,16 @@ export default function RegistroPage() {
 
       setIsSuccess(true);
 
-      // Redirigir después de 2 segundos
+      // Redirigir después de 3 segundos
       setTimeout(() => {
         router.push("/login");
-      }, 2000);
+      }, 3000);
     } catch (err) {
       console.error("Error:", err);
       setError("Error de conexión. Por favor, intenta de nuevo.");
       setIsLoading(false);
     }
   };
-
-  // Pantalla de validación
-  if (isValidating) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#fbf7ee] to-[#f1e7d5] px-4">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-[#ca9029] mx-auto mb-4" />
-          <p className="text-[#2e5e4e] font-semibold">Validando invitación...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Pantalla de error de validación
-  if (validationError) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#fbf7ee] to-[#f1e7d5] px-4">
-        <div className="w-full max-w-md">
-          <div className="rounded-3xl border border-[#dfd2be] bg-white shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-r from-red-600 to-red-700 px-6 py-8 text-center">
-              <AlertCircle className="h-12 w-12 text-white mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-white">Acceso Denegado</h1>
-            </div>
-
-            <div className="p-6 text-center">
-              <p className="text-red-600 font-semibold mb-6">{validationError}</p>
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white font-bold transition-colors"
-              >
-                Volver al Login
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // Pantalla de éxito
   if (isSuccess) {
@@ -170,15 +87,15 @@ export default function RegistroPage() {
           <div className="rounded-3xl border border-[#dfd2be] bg-white shadow-lg overflow-hidden">
             <div className="bg-gradient-to-r from-[#2e5e4e] to-[#5d3805] px-6 py-8 text-center">
               <CheckCircle className="h-12 w-12 text-white mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-white">¡Cuenta Creada!</h1>
+              <h1 className="text-2xl font-bold text-white">¡Registro Completado!</h1>
             </div>
 
             <div className="p-6 text-center">
               <p className="text-[#2e5e4e] font-semibold mb-2">
-                Tu cuenta ha sido creada exitosamente.
+                Tu cuenta de tienda está en revisión.
               </p>
               <p className="text-[#373737]/70 text-sm mb-6">
-                Serás redirigido al login en unos momentos...
+                Requiere aprobación del administrador para iniciar sesión. Serás redirigido al login en unos momentos...
               </p>
               <Loader2 className="h-6 w-6 animate-spin text-[#ca9029] mx-auto" />
             </div>
@@ -200,9 +117,9 @@ export default function RegistroPage() {
                 <UserPlus className="h-6 w-6 text-white" />
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-white">Crear Cuenta</h1>
+            <h1 className="text-2xl font-bold text-white">Registra tu Tienda</h1>
             <p className="text-[#a8bca8] text-sm mt-2">
-              Completa tu registro en Comunidad ILUMINA
+              Únete a Tienda AYLLU como vendedor
             </p>
           </div>
 
@@ -227,6 +144,23 @@ export default function RegistroPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tu nombre"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                required
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Store Name Field */}
+            <div>
+              <label htmlFor="storeName" className="block text-sm font-semibold text-[#2e5e4e] mb-2">
+                Nombre de la Tienda
+              </label>
+              <input
+                id="storeName"
+                type="text"
+                value={storeName}
+                onChange={(e) => setStoreName(e.target.value)}
+                placeholder="Nombre de tu tienda"
                 className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
@@ -293,12 +227,12 @@ export default function RegistroPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Creando cuenta...</span>
+                  <span>Registrando tienda...</span>
                 </>
               ) : (
                 <>
                   <UserPlus className="h-4 w-4" />
-                  <span>Crear Cuenta</span>
+                  <span>Registrar Tienda</span>
                 </>
               )}
             </button>
