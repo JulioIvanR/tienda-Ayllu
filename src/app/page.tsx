@@ -31,11 +31,11 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
-                href="/#productos"
+                href="/registro"
                 className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-6 py-3.5 text-sm font-bold shadow-md shadow-[#ca9029]/25 transition-all hover:scale-[1.02]"
               >
                 <ShoppingBag className="h-4 w-4" />
-                <span>Ingresar a mi tienda</span>
+                <span>Registra mi tienda</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
