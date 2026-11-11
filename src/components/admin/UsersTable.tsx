@@ -4,7 +4,7 @@ import { useState } from "react";
 import { User, ApprovalStatus } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Check, X, Shield, Store } from "lucide-react";
+import { Check, X, Shield, Store, Link as LinkIcon, Copy, Loader2 } from "lucide-react";
 
 interface UsersTableProps {
   initialUsers: User[];
@@ -12,11 +12,56 @@ interface UsersTableProps {
 
 export function UsersTable({ initialUsers }: UsersTableProps) {
   const [users, setUsers] = useState<User[]>(initialUsers);
+  const [generatingInvitation, setGeneratingInvitation] = useState<string | null>(null);
+  const [copiedInvitation, setCopiedInvitation] = useState<string | null>(null);
 
   const handleStatusChange = (userId: string, newStatus: ApprovalStatus) => {
     setUsers((prev) =>
       prev.map((u) => (u.id === userId ? { ...u, status: newStatus } : u))
     );
+  };
+
+  const handleGenerateInvitation = async (userEmail: string) => {
+    setGeneratingInvitation(userEmail);
+    try {
+      const response = await fetch("/api/invitations/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          role: "VENDOR",
+          expirationDays: 7,
+        }),
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(`Error: ${data.error}`);
+        setGeneratingInvitation(null);
+        return;
+      }
+
+      // Copiar automáticamente al portapapeles
+      await navigator.clipboard.writeText(data.invitation.registroUrl);
+      setCopiedInvitation(userEmail);
+
+      // Mostrar notificación de éxito
+      alert("¡Link de invitación copiado al portapapeles!");
+
+      // Limpiar estado después de 3 segundos
+      setTimeout(() => {
+        setCopiedInvitation(null);
+      }, 3000);
+    } catch (error) {
+      console.error("Error generando invitación:", error);
+      alert("Error al generar la invitación");
+    } finally {
+      setGeneratingInvitation(null);
+    }
   };
 
   const getStatusBadge = (status: ApprovalStatus) => {
@@ -80,6 +125,32 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                 <td className="px-6 py-4 text-right">
                   {user.role === "VENDOR" ? (
                     <div className="flex items-center justify-end gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={generatingInvitation === user.email}
+                        onClick={() => handleGenerateInvitation(user.email)}
+                        className="text-xs"
+                        title="Generar y copiar link de invitación"
+                      >
+                        {generatingInvitation === user.email ? (
+                          <>
+                            <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                            Generando...
+                          </>
+                        ) : copiedInvitation === user.email ? (
+                          <>
+                            <Copy className="h-3.5 w-3.5 mr-1 text-green-600" />
+                            Copiado
+                          </>
+                        ) : (
+                          <>
+                            <LinkIcon className="h-3.5 w-3.5 mr-1" />
+                            Generar Link
+                          </>
+                        )}
+                      </Button>
+
                       <Button
                         size="sm"
                         variant={user.status === "APPROVED" ? "outline" : "primary"}
