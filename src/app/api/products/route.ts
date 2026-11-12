@@ -1,100 +1,126 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { MOCK_PRODUCTS } from "@/lib/mock-data";
+import { getCurrentSessionUser } from "@/lib/auth";
+import { DEFAULT_PRODUCTS_PAGE_SIZE, getProductsPage } from "@/lib/catalog";
+import { slugify } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page") || "1", 10) || 1;
+    const limit =
+      parseInt(
+        searchParams.get("limit") || String(DEFAULT_PRODUCTS_PAGE_SIZE),
+        10
+      ) || DEFAULT_PRODUCTS_PAGE_SIZE;
+    const categoryId = searchParams.get("categoryId") || undefined;
+
+    const result = await getProductsPage({ page, limit, categoryId });
+
+    return NextResponse.json(result, { status: 200 });
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    return NextResponse.json(
+      { error: "Error al cargar los productos." },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
+    const session = await getCurrentSessionUser(req);
+
+    if (!session) {
+      return NextResponse.json(
+        { error: "Debes iniciar sesión para publicar productos." },
+        { status: 401 }
+      );
+    }
+
+    if (session.role !== "VENDOR" || !session.vendor) {
+      return NextResponse.json(
+        { error: "Solo los vendedores con tienda asignada pueden publicar productos." },
+        { status: 403 }
+      );
+    }
+
+    if (session.status !== "APPROVED") {
+      return NextResponse.json(
+        { error: "Tu cuenta aún no ha sido aprobada para publicar productos." },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const { title, slug, price, stock, categoryId, images, description } = body;
 
-    if (!title || !slug || price === undefined) {
+    const cleanTitle = typeof title === "string" ? title.trim() : "";
+    let cleanSlug =
+      slugify(typeof slug === "string" && slug.trim() ? slug : cleanTitle).replace(
+        /^-+|-+$/g,
+        ""
+      );
+
+    if (!cleanTitle || !cleanSlug || price === undefined || Number.isNaN(Number(price))) {
       return NextResponse.json(
         { error: "Faltan datos obligatorios del producto (título, slug, precio)." },
         { status: 400 }
       );
     }
 
-    try {
-      // Find default vendor or first approved vendor in database
-      let vendor = await prisma.vendor.findFirst();
-      if (!vendor) {
-        // Find or create default user and vendor
-        const user = await prisma.user.upsert({
-          where: { email: "cafe@delvalle.com" },
-          update: {},
-          create: {
-            email: "cafe@delvalle.com",
-            name: "Carlos Restrepo",
-            role: "VENDOR",
-            status: "APPROVED",
-          },
-        });
+    const existingSlug = await prisma.product.findUnique({
+      where: { slug: cleanSlug },
+      select: { id: true },
+    });
 
-        vendor = await prisma.vendor.create({
-          data: {
-            userId: user.id,
-            storeName: "Café Origen & Artesanías",
-            slug: "cafe-origen",
-            whatsappNumber: "573001234567",
-          },
-        });
-      }
+    if (existingSlug) {
+      cleanSlug = `${cleanSlug}-${Math.random().toString(36).substring(2, 6)}`;
+    }
 
-      // Check category
-      let category = await prisma.category.findUnique({
-        where: { id: categoryId },
-      });
+    let category = categoryId
+      ? await prisma.category.findUnique({ where: { id: categoryId } })
+      : null;
 
-      if (!category) {
-        category = await prisma.category.findFirst();
-      }
+    if (!category) {
+      category = await prisma.category.findFirst();
+    }
 
-      const product = await prisma.product.create({
-        data: {
-          title,
-          slug,
-          price: parseFloat(price),
-          stock: parseInt(stock, 10) || 0,
-          images: images || [],
-          description: description || "",
-          categoryId: category ? category.id : categoryId,
-          vendorId: vendor.id,
-        },
-      });
-
-      return NextResponse.json({ success: true, product }, { status: 201 });
-    } catch (dbError: any) {
-      console.warn("Base de datos no disponible; guardando en memoria de prueba:", dbError.message);
-      
-      const simulatedProduct = {
-        id: `prod_${Date.now()}`,
-        title,
-        slug,
-        price: parseFloat(price),
-        stock: parseInt(stock, 10) || 0,
-        images: images || [],
-        description: description || "",
-        isActive: true,
-        vendorId: "ven_cafe_1",
-        categoryId,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-
-      MOCK_PRODUCTS.unshift(simulatedProduct);
-
+    if (!category) {
       return NextResponse.json(
-        {
-          success: true,
-          product: simulatedProduct,
-          notice: "Guardado en catálogo local de prueba.",
-        },
-        { status: 201 }
+        { error: "No hay una categoría válida seleccionada." },
+        { status: 400 }
       );
     }
-  } catch (error: any) {
+
+    const product = await prisma.product.create({
+      data: {
+        title: cleanTitle,
+        slug: cleanSlug,
+        price: parseFloat(String(price)),
+        stock: parseInt(String(stock), 10) || 0,
+        images: Array.isArray(images) ? images : [],
+        description: typeof description === "string" ? description.trim() : "",
+        categoryId: category.id,
+        vendorId: session.vendor.id,
+      },
+    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        product: {
+          ...product,
+          price: Number(product.price),
+          createdAt: product.createdAt.toISOString(),
+          updatedAt: product.updatedAt.toISOString(),
+        },
+      },
+      { status: 201 }
+    );
+  } catch (error) {
     console.error("Error al crear producto:", error);
     return NextResponse.json(
       { error: "Error al procesar la creación del producto." },

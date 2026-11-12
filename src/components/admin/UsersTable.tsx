@@ -1,66 +1,69 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { User, ApprovalStatus } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Check, X, Shield, Store, Link as LinkIcon, Copy, Loader2 } from "lucide-react";
+import { Check, X, Shield, Store } from "lucide-react";
 
 interface UsersTableProps {
   initialUsers: User[];
 }
 
 export function UsersTable({ initialUsers }: UsersTableProps) {
-  const [users, setUsers] = useState<User[]>(initialUsers);
-  const [generatingInvitation, setGeneratingInvitation] = useState<string | null>(null);
-  const [copiedInvitation, setCopiedInvitation] = useState<string | null>(null);
+  const router = useRouter();
+  const [statusOverrides, setStatusOverrides] = useState<
+    Record<string, ApprovalStatus>
+  >({});
+  const [updatingAction, setUpdatingAction] = useState<{
+    userId: string;
+    status: ApprovalStatus;
+  } | null>(null);
 
-  const handleStatusChange = (userId: string, newStatus: ApprovalStatus) => {
-    setUsers((prev) =>
-      prev.map((u) => (u.id === userId ? { ...u, status: newStatus } : u))
-    );
-  };
+  const users = initialUsers.map((user) =>
+    statusOverrides[user.id]
+      ? { ...user, status: statusOverrides[user.id] }
+      : user
+  );
 
-  const handleGenerateInvitation = async (userEmail: string) => {
-    setGeneratingInvitation(userEmail);
+  const handleStatusChange = async (
+    userId: string,
+    newStatus: ApprovalStatus
+  ) => {
+    setUpdatingAction({ userId, status: newStatus });
+
     try {
-      const response = await fetch("/api/invitations/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: userEmail,
-          role: "VENDOR",
-          expirationDays: 7,
-        }),
+      const res = await fetch(`/api/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
         credentials: "include",
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        alert(`Error: ${data.error}`);
-        setGeneratingInvitation(null);
-        return;
+      if (!res.ok) {
+        throw new Error(
+          data.error || "No se pudo actualizar el estado del usuario."
+        );
       }
 
-      // Copiar automáticamente al portapapeles
-      await navigator.clipboard.writeText(data.invitation.registroUrl);
-      setCopiedInvitation(userEmail);
-
-      // Mostrar notificación de éxito
-      alert("¡Link de invitación copiado al portapapeles!");
-
-      // Limpiar estado después de 3 segundos
-      setTimeout(() => {
-        setCopiedInvitation(null);
-      }, 3000);
-    } catch (error) {
-      console.error("Error generando invitación:", error);
-      alert("Error al generar la invitación");
+      const confirmedStatus: ApprovalStatus = data.user?.status ?? newStatus;
+      setStatusOverrides((prev) => ({
+        ...prev,
+        [userId]: confirmedStatus,
+      }));
+      router.refresh();
+    } catch (error: unknown) {
+      console.error("Error al actualizar estado de usuario:", error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Error al actualizar el estado del usuario."
+      );
     } finally {
-      setGeneratingInvitation(null);
+      setUpdatingAction(null);
     }
   };
 
@@ -89,95 +92,84 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-[#dfd2be]">
-            {users.map((user) => (
-              <tr key={user.id} className="hover:bg-[#f1e7d5]/40 transition-colors">
-                <td className="px-6 py-4">
-                  <div>
-                    <span className="font-bold text-[#2e5e4e] block">
-                      {user.name || "Sin nombre"}
-                    </span>
-                    <span className="text-xs text-[#373737]/65">{user.email}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-1.5">
-                    {user.role === "SUPER_ADMIN" ? (
-                      <>
-                        <Shield className="h-4 w-4 text-[#2e5e4e]" />
-                        <span className="font-bold text-[#2e5e4e] text-xs">Super Admin</span>
-                      </>
-                    ) : (
-                      <>
-                        <Store className="h-4 w-4 text-[#ca9029]" />
-                        <span className="font-bold text-[#ca9029] text-xs">Vendedor</span>
-                      </>
-                    )}
-                  </div>
-                </td>
-                <td className="px-6 py-4">{getStatusBadge(user.status)}</td>
-                <td className="px-6 py-4 text-xs text-[#373737]/65 font-medium">
-                  {new Date(user.createdAt).toLocaleDateString("es-ES", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </td>
-                <td className="px-6 py-4 text-right">
-                  {user.role === "VENDOR" ? (
-                    <div className="flex items-center justify-end gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        disabled={generatingInvitation === user.email}
-                        onClick={() => handleGenerateInvitation(user.email)}
-                        className="text-xs"
-                        title="Generar y copiar link de invitación"
-                      >
-                        {generatingInvitation === user.email ? (
-                          <>
-                            <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-                            Generando...
-                          </>
-                        ) : copiedInvitation === user.email ? (
-                          <>
-                            <Copy className="h-3.5 w-3.5 mr-1 text-green-600" />
-                            Copiado
-                          </>
-                        ) : (
-                          <>
-                            <LinkIcon className="h-3.5 w-3.5 mr-1" />
-                            Generar Link
-                          </>
-                        )}
-                      </Button>
+            {users.map((user) => {
+              const isRowUpdating = updatingAction?.userId === user.id;
 
-                      <Button
-                        size="sm"
-                        variant={user.status === "APPROVED" ? "outline" : "primary"}
-                        disabled={user.status === "APPROVED"}
-                        onClick={() => handleStatusChange(user.id, "APPROVED")}
-                        className="text-xs"
-                      >
-                        <Check className="h-3.5 w-3.5 mr-1" />
-                        Aprobar
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant={user.status === "REJECTED" ? "outline" : "danger"}
-                        disabled={user.status === "REJECTED"}
-                        onClick={() => handleStatusChange(user.id, "REJECTED")}
-                        className="text-xs"
-                      >
-                        <X className="h-3.5 w-3.5 mr-1" />
-                        Rechazar
-                      </Button>
+              return (
+                <tr key={user.id} className="hover:bg-[#f1e7d5]/40 transition-colors">
+                  <td className="px-6 py-4">
+                    <div>
+                      <span className="font-bold text-[#2e5e4e] block">
+                        {user.name || "Sin nombre"}
+                      </span>
+                      <span className="text-xs text-[#373737]/65">{user.email}</span>
                     </div>
-                  ) : (
-                    <span className="text-xs text-[#373737]/50 italic">Acción bloqueada</span>
-                  )}
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-1.5">
+                      {user.role === "SUPER_ADMIN" ? (
+                        <>
+                          <Shield className="h-4 w-4 text-[#2e5e4e]" />
+                          <span className="font-bold text-[#2e5e4e] text-xs">Super Admin</span>
+                        </>
+                      ) : (
+                        <>
+                          <Store className="h-4 w-4 text-[#ca9029]" />
+                          <span className="font-bold text-[#ca9029] text-xs">Vendedor</span>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">{getStatusBadge(user.status)}</td>
+                  <td
+                    suppressHydrationWarning
+                    className="px-6 py-4 text-xs text-[#373737]/65 font-medium"
+                  >
+                    {new Date(user.createdAt).toLocaleDateString("es-ES", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    {user.role === "VENDOR" ? (
+                      <div className="flex items-center justify-end gap-2">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant={user.status === "APPROVED" ? "outline" : "primary"}
+                          disabled={user.status === "APPROVED" || isRowUpdating}
+                          isLoading={
+                            isRowUpdating && updatingAction?.status === "APPROVED"
+                          }
+                          onClick={() => handleStatusChange(user.id, "APPROVED")}
+                          className="text-xs"
+                        >
+                          <Check className="h-3.5 w-3.5 mr-1" />
+                          Aprobar
+                        </Button>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant={user.status === "REJECTED" ? "outline" : "danger"}
+                          disabled={user.status === "REJECTED" || isRowUpdating}
+                          isLoading={
+                            isRowUpdating && updatingAction?.status === "REJECTED"
+                          }
+                          onClick={() => handleStatusChange(user.id, "REJECTED")}
+                          className="text-xs"
+                        >
+                          <X className="h-3.5 w-3.5 mr-1" />
+                          Rechazar
+                        </Button>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-[#373737]/50 italic">Acción bloqueada</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

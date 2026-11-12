@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ShieldCheck,
   ShoppingBag,
+  Store,
   LayoutDashboard,
   LogOut,
   User,
@@ -21,17 +22,23 @@ interface UserSession {
 
 export function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState<UserSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Verificar sesión al montar el componente
+  // Verificar sesión al montar o cambiar de ruta
   useEffect(() => {
+    let active = true;
+
     const checkSession = async () => {
       try {
         const response = await fetch("/api/auth/me", {
           credentials: "include",
+          cache: "no-store",
         });
+
+        if (!active) return;
 
         if (response.ok) {
           const data = await response.json();
@@ -44,15 +51,23 @@ export function Navbar() {
           setUser(null);
         }
       } catch (error) {
-        console.error("Error al verificar sesión:", error);
-        setUser(null);
+        if (active) {
+          console.error("Error al verificar sesión:", error);
+          setUser(null);
+        }
       } finally {
-        setIsLoading(false);
+        if (active) {
+          setIsLoading(false);
+        }
       }
     };
 
     checkSession();
-  }, []);
+
+    return () => {
+      active = false;
+    };
+  }, [pathname]);
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -63,8 +78,10 @@ export function Navbar() {
       });
       setUser(null);
       router.push("/login");
+      router.refresh();
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
+    } finally {
       setIsLoggingOut(false);
     }
   };
@@ -93,6 +110,15 @@ export function Navbar() {
           >
             <ShoppingBag className="h-4 w-4 text-[#2e5e4e]" />
             <span className="hidden sm:inline">Tienda</span>
+          </Link>
+
+          {/* Directorio de Tiendas */}
+          <Link
+            href="/tiendas"
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-[#2e5e4e] hover:bg-[#a8bca8]/20 rounded-lg transition-colors"
+          >
+            <Store className="h-4 w-4 text-[#ca9029]" />
+            <span className="hidden sm:inline">Tiendas</span>
           </Link>
 
           {/* Si está cargando, mostrar loader */}
@@ -136,7 +162,7 @@ export function Navbar() {
                 <button
                   onClick={handleLogout}
                   disabled={isLoggingOut}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <LogOut className="h-4 w-4" />
                   <span className="hidden sm:inline">

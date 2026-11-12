@@ -43,6 +43,7 @@ export default function LoginPage() {
       } else {
         router.push("/");
       }
+      router.refresh();
     } catch (err) {
       console.error("Error:", err);
       setError("Error de conexión. Por favor, intenta de nuevo.");
@@ -116,7 +117,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-[#ca9029]/25"
+              className="w-full py-3 px-4 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-[#ca9029]/25 cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -144,7 +145,7 @@ export default function LoginPage() {
                   <strong>Vendor:</strong> info@comunidadilumina.com
                 </p>
                 <p>
-                  <strong>Contraseña:</strong> Aguila&Condor2026
+                  <strong>Contraseña:</strong> Aguila&amp;Condor2026
                 </p>
               </div>
             </div>

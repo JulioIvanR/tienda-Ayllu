@@ -1,19 +1,43 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useSyncExternalStore } from "react";
 import { MessageCircle, Plus, Minus, Send, CheckCircle2, ShieldCheck } from "lucide-react";
 import { Product, Vendor } from "@/types";
 import { formatCurrency } from "@/lib/utils";
-import { buildWhatsAppOrderUrl } from "@/lib/whatsapp";
+import {
+  buildWhatsAppOrderMessage,
+  buildWhatsAppOrderUrl,
+} from "@/lib/whatsapp";
 
 interface WhatsAppBuyButtonProps {
   product: Product;
   vendor: Vendor;
+  baseOrigin?: string;
 }
 
-export function WhatsAppBuyButton({ product, vendor }: WhatsAppBuyButtonProps) {
+const emptySubscribe = () => () => {};
+
+export function WhatsAppBuyButton({
+  product,
+  vendor,
+  baseOrigin,
+}: WhatsAppBuyButtonProps) {
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState("");
+
+  const fallbackOrigin = (
+    baseOrigin ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    "http://localhost:3000"
+  ).replace(/\/+$/, "");
+
+  const origin = useSyncExternalStore(
+    emptySubscribe,
+    () => window.location.origin,
+    () => fallbackOrigin
+  );
+
+  const productUrl = `${origin.replace(/\/+$/, "")}/producto/${product.slug}`;
 
   const maxStock = product.stock > 0 ? product.stock : 1;
   const isOutOfStock = product.stock === 0;
@@ -30,22 +54,28 @@ export function WhatsAppBuyButton({ product, vendor }: WhatsAppBuyButtonProps) {
     }
   };
 
-  const currentUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `${process.env.NEXT_PUBLIC_APP_URL || "https://tienda.com"}/producto/${product.slug}`;
-
-  const whatsAppUrl = useMemo(() => {
-    return buildWhatsAppOrderUrl({
+  const orderPayload = useMemo(
+    () => ({
       vendorWhatsapp: vendor.whatsappNumber,
       storeName: vendor.storeName,
       productTitle: product.title,
       productPrice: Number(product.price),
-      quantity: quantity,
-      productUrl: currentUrl,
+      quantity,
+      productUrl,
       customerNotes: notes,
-    });
-  }, [vendor, product, quantity, currentUrl, notes]);
+    }),
+    [vendor.whatsappNumber, vendor.storeName, product.title, product.price, quantity, productUrl, notes]
+  );
+
+  const whatsAppUrl = useMemo(
+    () => buildWhatsAppOrderUrl(orderPayload),
+    [orderPayload]
+  );
+
+  const messagePreview = useMemo(
+    () => buildWhatsAppOrderMessage(orderPayload),
+    [orderPayload]
+  );
 
   const totalPrice = Number(product.price) * quantity;
 
@@ -63,7 +93,7 @@ export function WhatsAppBuyButton({ product, vendor }: WhatsAppBuyButtonProps) {
                 type="button"
                 onClick={handleDecrement}
                 disabled={quantity <= 1 || isOutOfStock}
-                className="h-8 w-8 rounded-lg flex items-center justify-center text-[#373737] hover:bg-[#f1e7d5] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                className="h-8 w-8 rounded-lg flex items-center justify-center text-[#373737] hover:bg-[#f1e7d5] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
                 aria-label="Disminuir cantidad"
               >
                 <Minus className="h-4 w-4" />
@@ -75,7 +105,7 @@ export function WhatsAppBuyButton({ product, vendor }: WhatsAppBuyButtonProps) {
                 type="button"
                 onClick={handleIncrement}
                 disabled={quantity >= maxStock || isOutOfStock}
-                className="h-8 w-8 rounded-lg flex items-center justify-center text-[#373737] hover:bg-[#f1e7d5] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                className="h-8 w-8 rounded-lg flex items-center justify-center text-[#373737] hover:bg-[#f1e7d5] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
                 aria-label="Aumentar cantidad"
               >
                 <Plus className="h-4 w-4" />
@@ -145,14 +175,7 @@ export function WhatsAppBuyButton({ product, vendor }: WhatsAppBuyButtonProps) {
             Mensaje preformateado que se enviará:
           </p>
           <div className="bg-white/90 rounded-lg p-2.5 font-mono text-[11px] leading-relaxed border border-[#dfd2be] whitespace-pre-wrap text-[#373737]">
-            {`¡Hola *${vendor.storeName}*! 👋
-Vengo de Tienda AYLLU y me gustaría realizar un pedido del siguiente producto:
-
-🛍️ *Producto:* ${product.title}
-🔢 *Cantidad:* ${quantity}
-💵 *Precio unitario:* ${formatCurrency(Number(product.price))}
-💰 *Total estimado:* ${formatCurrency(totalPrice)}
-🔗 *Ver producto:* ${currentUrl}${notes ? `\n\n📝 *Nota:* ${notes}` : ""}`}
+            {messagePreview}
           </div>
         </div>
       </div>

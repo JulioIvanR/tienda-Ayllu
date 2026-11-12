@@ -30,20 +30,22 @@ body {
 }
 
 /* Headings base styles honoring user palette */
-h1 {
-  color: #2e5e4e;
-}
+@layer base {
+  h1 {
+    color: #2e5e4e;
+  }
 
-h2 {
-  color: #2e5e4e;
-}
+  h2 {
+    color: #2e5e4e;
+  }
 
-h3 {
-  color: #5d3805;
-}
+  h3 {
+    color: #5d3805;
+  }
 
-h4, h5, h6 {
-  color: #5d3805;
+  h4, h5, h6 {
+    color: #5d3805;
+  }
 }
 
 ::selection {

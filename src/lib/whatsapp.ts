@@ -2,12 +2,12 @@ import { cleanPhoneNumber, formatCurrency } from "./utils";
 import { WhatsAppOrderPayload } from "@/types";
 
 /**
- * Builds a dynamic WhatsApp checkout URL (https://wa.me/...) with product details,
- * quantity, total price, and the direct canonical URL of the product.
+ * Builds the formatted WhatsApp order message body.
  */
-export function buildWhatsAppOrderUrl(payload: WhatsAppOrderPayload): string {
+export function buildWhatsAppOrderMessage(
+  payload: Omit<WhatsAppOrderPayload, "vendorWhatsapp">
+): string {
   const {
-    vendorWhatsapp,
     storeName,
     productTitle,
     productPrice,
@@ -16,7 +16,6 @@ export function buildWhatsAppOrderUrl(payload: WhatsAppOrderPayload): string {
     customerNotes,
   } = payload;
 
-  const phone = cleanPhoneNumber(vendorWhatsapp);
   const totalPrice = productPrice * quantity;
   const formattedUnitPrice = formatCurrency(productPrice);
   const formattedTotal = formatCurrency(totalPrice);
@@ -36,9 +35,21 @@ export function buildWhatsAppOrderUrl(payload: WhatsAppOrderPayload): string {
     lines.push(``, `📝 *Nota adicional:* ${customerNotes.trim()}`);
   }
 
-  lines.push(``, `¿Tienen disponibilidad y cómo procedemos con el envío/pago? ¡Gracias!`);
+  lines.push(
+    ``,
+    `¿Tienen disponibilidad y cómo procedemos con el envío/pago? ¡Gracias!`
+  );
 
-  const message = lines.join("\n");
+  return lines.join("\n");
+}
+
+/**
+ * Builds a dynamic WhatsApp checkout URL (https://wa.me/...) with product details,
+ * quantity, total price, and the direct canonical URL of the product.
+ */
+export function buildWhatsAppOrderUrl(payload: WhatsAppOrderPayload): string {
+  const phone = cleanPhoneNumber(payload.vendorWhatsapp);
+  const message = buildWhatsAppOrderMessage(payload);
   const encodedText = encodeURIComponent(message);
 
   return `https://wa.me/${phone}?text=${encodedText}`;

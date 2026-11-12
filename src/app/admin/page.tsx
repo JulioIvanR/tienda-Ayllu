@@ -5,36 +5,65 @@ import { MOCK_USERS, MOCK_CATEGORIES } from "@/lib/mock-data";
 import { UsersTable } from "@/components/admin/UsersTable";
 import { CategoriesTable } from "@/components/admin/CategoriesTable";
 import { Card, CardContent } from "@/components/ui/Card";
+import type { Category, User } from "@/types";
 
 export const dynamic = "force-dynamic";
 
 async function getAdminOverview() {
   try {
-    const [userCount, pendingUsers, categoryCount, pendingCats] = await Promise.all([
+    const [
+      userCount,
+      pendingUsersCount,
+      categoryCount,
+      pendingCategoriesCount,
+      dbUsers,
+      categories,
+    ] = await Promise.all([
       prisma.user.count(),
-      prisma.user.findMany({ where: { status: "PENDING" } }),
+      prisma.user.count({ where: { status: "PENDING" } }),
       prisma.category.count(),
-      prisma.category.findMany({ where: { status: "PENDING" } }),
+      prisma.category.count({ where: { status: "PENDING" } }),
+      prisma.user.findMany({
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+          status: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.category.findMany({
+        orderBy: { createdAt: "desc" },
+      }),
     ]);
 
-    const users = await prisma.user.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    const categories = await prisma.category.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    const users: User[] = dbUsers.map((u) => ({
+      ...u,
+      createdAt: u.createdAt.toISOString(),
+      updatedAt: u.updatedAt.toISOString(),
+    }));
+
+    const serializedCategories: Category[] = categories.map((c) => ({
+      ...c,
+      createdAt: c.createdAt.toISOString(),
+      updatedAt: c.updatedAt.toISOString(),
+    }));
 
     return {
       stats: {
         totalUsers: userCount,
-        pendingUsersCount: pendingUsers.length,
+        pendingUsersCount,
         totalCategories: categoryCount,
-        pendingCategoriesCount: pendingCats.length,
+        pendingCategoriesCount,
       },
       users,
-      categories,
+      categories: serializedCategories,
     };
   } catch (error) {
+    console.warn("Error al cargar resumen de admin:", error);
     return {
       stats: {
         totalUsers: MOCK_USERS.length,
@@ -142,7 +171,7 @@ export default async function AdminDashboardPage() {
           </Link>
         </div>
 
-        <UsersTable initialUsers={data.users as any} />
+        <UsersTable initialUsers={data.users} />
       </section>
 
       {/* Categories Approval Section */}
@@ -165,7 +194,7 @@ export default async function AdminDashboardPage() {
           </Link>
         </div>
 
-        <CategoriesTable initialCategories={data.categories as any} />
+        <CategoriesTable initialCategories={data.categories} />
       </section>
     </div>
   );

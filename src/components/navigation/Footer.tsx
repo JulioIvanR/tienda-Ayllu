@@ -17,8 +17,8 @@ export function Footer() {
             <Link href="/" className="hover:text-[#ca9029] transition-colors">
               Inicio
             </Link>
-            <Link href="/vendedor/cafe-origen" className="hover:text-[#ca9029] transition-colors">
-              Mini-tienda demo
+            <Link href="/tiendas" className="hover:text-[#ca9029] transition-colors">
+              Tiendas
             </Link>
             <Link href="/vendedor-panel" className="hover:text-[#ca9029] transition-colors">
               Vendedores
@@ -31,7 +31,7 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between border-t border-[#dfd2be] pt-6 text-xs text-[#373737]/75 sm:flex-row">
           <p className="flex items-center gap-1">
-            Construido con Next.js (App Router), Tailwind CSS & Prisma ORM.
+            Construido con Next.js (App Router), Tailwind CSS &amp; Prisma ORM.
           </p>
           <div className="mt-2 flex items-center gap-1.5 text-[#2e5e4e] font-semibold sm:mt-0">
             <MessageCircle className="h-4 w-4 text-[#25D366]" />

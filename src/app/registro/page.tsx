@@ -22,8 +22,12 @@ export default function RegistroPage() {
     setError("");
     setIsLoading(true);
 
+    const trimmedName = name.trim();
+    const trimmedStoreName = storeName.trim();
+    const trimmedEmail = email.trim();
+
     // Validaciones
-    if (!name || !storeName || !email || !password || !confirmPassword) {
+    if (!trimmedName || !trimmedStoreName || !trimmedEmail || !password || !confirmPassword) {
       setError("Todos los campos son requeridos.");
       setIsLoading(false);
       return;
@@ -48,9 +52,9 @@ export default function RegistroPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          storeName,
-          email,
+          name: trimmedName,
+          storeName: trimmedStoreName,
+          email: trimmedEmail,
           password,
           role: "VENDOR",
           approved: false,

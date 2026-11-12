@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Store, Tag, PackageCheck, AlertCircle } from "lucide-react";
@@ -110,6 +111,21 @@ export default async function ProductDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const headersList = await headers();
+  const rawHost =
+    headersList.get("x-forwarded-host") || headersList.get("host");
+  const host = rawHost?.split(",")[0].trim();
+  const rawProto = headersList.get("x-forwarded-proto");
+  const proto =
+    rawProto?.split(",")[0].trim() ||
+    (host?.includes("localhost") || host?.startsWith("127.") ? "http" : "https");
+  const baseOrigin = host
+    ? `${proto}://${host}`
+    : (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(
+        /\/+$/,
+        ""
+      );
+
   const { product, vendor, category, relatedProducts } = data;
 
   return (
@@ -195,7 +211,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
           {/* Dynamic WhatsApp Redirection Widget */}
           <div className="pt-2">
-            <WhatsAppBuyButton product={product} vendor={vendor} />
+            <WhatsAppBuyButton
+              product={product}
+              vendor={vendor}
+              baseOrigin={baseOrigin}
+            />
           </div>
         </div>
       </div>

@@ -2,10 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Package, PlusCircle, Store, ArrowLeft, ExternalLink, SlidersHorizontal } from "lucide-react";
+import {
+  Package,
+  PlusCircle,
+  Store,
+  ArrowLeft,
+  ExternalLink,
+  SlidersHorizontal,
+  LayoutDashboard,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const VENDOR_LINKS = [
+  {
+    name: "Resumen",
+    href: "/vendedor-panel",
+    icon: LayoutDashboard,
+  },
   {
     name: "Mis Productos",
     href: "/vendedor-panel/productos",
@@ -23,14 +36,26 @@ const VENDOR_LINKS = [
   },
 ];
 
-export function VendorSidebar() {
+interface VendorSidebarProps {
+  storeName?: string | null;
+  storeSlug?: string | null;
+}
+
+export function VendorSidebar({ storeName, storeSlug }: VendorSidebarProps) {
   const pathname = usePathname();
 
   return (
     <aside className="w-64 shrink-0 border-r border-[#dfd2be] bg-[#fcf8f0] p-4 min-h-[calc(100vh-4rem)]">
-      <div className="flex items-center gap-2 px-3 py-2 text-[#5d3805] font-bold text-sm">
-        <SlidersHorizontal className="h-5 w-5 text-[#ca9029]" />
-        <span>Panel de Vendedor</span>
+      <div className="px-3 py-2 space-y-1">
+        <div className="flex items-center gap-2 text-[#5d3805] font-bold text-sm">
+          <SlidersHorizontal className="h-5 w-5 text-[#ca9029]" />
+          <span>Panel de Vendedor</span>
+        </div>
+        {storeName && (
+          <p className="text-xs font-semibold text-[#2e5e4e] truncate pl-7">
+            {storeName}
+          </p>
+        )}
       </div>
 
       <nav className="mt-6 space-y-1">
@@ -56,17 +81,19 @@ export function VendorSidebar() {
       </nav>
 
       <div className="mt-8 pt-6 border-t border-[#dfd2be] space-y-2">
-        <Link
-          href="/vendedor/cafe-origen"
-          target="_blank"
-          className="flex items-center justify-between px-3 py-2 text-xs font-bold text-white bg-[#2e5e4e] rounded-xl hover:bg-[#244b3e] shadow-2xs transition-colors"
-        >
-          <span className="flex items-center gap-1.5">
-            <Store className="h-3.5 w-3.5" />
-            Ver mi tienda pública
-          </span>
-          <ExternalLink className="h-3 w-3" />
-        </Link>
+        {storeSlug && (
+          <Link
+            href={`/vendedor/${storeSlug}`}
+            target="_blank"
+            className="flex items-center justify-between px-3 py-2 text-xs font-bold text-white bg-[#2e5e4e] rounded-xl hover:bg-[#244b3e] shadow-2xs transition-colors"
+          >
+            <span className="flex items-center gap-1.5">
+              <Store className="h-3.5 w-3.5" />
+              Ver mi tienda pública
+            </span>
+            <ExternalLink className="h-3 w-3" />
+          </Link>
+        )}
 
         <Link
           href="/"
