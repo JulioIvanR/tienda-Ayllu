@@ -17,7 +17,7 @@ export function ProductCard({ product, vendorSlug, vendorName }: ProductCardProp
       : "https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=600&h=600&fit=crop";
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-[#ca9029]/60">
+    <div className="group flex flex-col overflow-hidden rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-[#b03917]/60">
       {/* Product Image */}
       <Link href={`/producto/${product.slug}`} className="relative aspect-square w-full overflow-hidden bg-[#e8ded0]">
         <img
@@ -42,7 +42,7 @@ export function ProductCard({ product, vendorSlug, vendorName }: ProductCardProp
         {vendorName && vendorSlug && (
           <Link
             href={`/vendedor/${vendorSlug}`}
-            className="text-xs font-semibold text-[#ca9029] hover:underline mb-1"
+            className="text-xs font-semibold text-[#b03917] hover:underline mb-1"
           >
             {vendorName}
           </Link>
@@ -69,7 +69,7 @@ export function ProductCard({ product, vendorSlug, vendorName }: ProductCardProp
 
           <Link
             href={`/producto/${product.slug}`}
-            className="flex items-center gap-1.5 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-3.5 py-2 text-xs font-bold shadow-2xs transition-colors"
+            className="flex items-center gap-1.5 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-3.5 py-2 text-xs font-bold shadow-2xs transition-colors"
           >
             <MessageCircle className="h-4 w-4" />
             <span>Pedir</span>

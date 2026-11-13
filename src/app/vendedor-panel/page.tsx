@@ -27,7 +27,7 @@ export default async function VendorDashboardPage() {
     return (
       <div className="max-w-xl rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 space-y-4">
         <div className="flex items-center gap-2 text-[#5d3805] font-bold">
-          <ShieldAlert className="h-5 w-5 text-[#ca9029]" />
+          <ShieldAlert className="h-5 w-5 text-[#b03917]" />
           <span>Cuenta sin tienda de vendedor asignada</span>
         </div>
         <p className="text-sm text-[#373737]/80">
@@ -44,7 +44,7 @@ export default async function VendorDashboardPage() {
           )}
           <Link
             href="/login"
-            className="inline-flex items-center rounded-xl bg-[#ca9029] px-4 py-2 text-xs font-bold text-white hover:bg-[#b57f22]"
+            className="inline-flex items-center rounded-xl bg-[#b03917] px-4 py-2 text-xs font-bold text-white hover:bg-[#8f2c0f]"
           >
             Cambiar de cuenta
           </Link>
@@ -70,7 +70,7 @@ export default async function VendorDashboardPage() {
   return (
     <div className="space-y-8">
       {/* Top Banner / Welcome */}
-      <div className="rounded-3xl bg-gradient-to-r from-[#2e5e4e] via-[#5d3805] to-[#ca9029] p-6 sm:p-8 text-white shadow-md">
+      <div className="rounded-3xl bg-gradient-to-r from-[#2e5e4e] via-[#5d3805] to-[#b03917] p-6 sm:p-8 text-white shadow-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -105,7 +105,7 @@ export default async function VendorDashboardPage() {
           <Link
             href={`/vendedor/${vendor.slug}`}
             target="_blank"
-            className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-5 py-3 text-sm font-bold shadow-md transition-all self-start sm:self-auto"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-5 py-3 text-sm font-bold shadow-md transition-all self-start sm:self-auto"
           >
             <Eye className="h-4 w-4" />
             <span>Ver mi tienda pública</span>
@@ -138,11 +138,11 @@ export default async function VendorDashboardPage() {
               <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">
                 Unidades en Stock
               </p>
-              <p className="text-3xl font-black text-[#ca9029] mt-1">
+              <p className="text-3xl font-black text-[#b03917] mt-1">
                 {totalStock}
               </p>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+            <div className="h-12 w-12 rounded-2xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
               <Package className="h-6 w-6" />
             </div>
           </CardContent>
@@ -164,7 +164,7 @@ export default async function VendorDashboardPage() {
             </div>
             <Link
               href="/vendedor-panel/perfil"
-              className="text-xs font-bold text-[#ca9029] hover:underline"
+              className="text-xs font-bold text-[#b03917] hover:underline"
             >
               Editar
             </Link>
@@ -187,13 +187,13 @@ export default async function VendorDashboardPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/vendedor-panel/productos"
-              className="text-xs font-bold text-[#ca9029] hover:underline"
+              className="text-xs font-bold text-[#b03917] hover:underline"
             >
               Ver todos ({products.length})
             </Link>
             <Link
               href="/vendedor-panel/productos/nuevo"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-3.5 py-2 text-xs font-bold shadow-2xs"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-3.5 py-2 text-xs font-bold shadow-2xs"
             >
               <PlusCircle className="h-4 w-4" />
               <span>Nuevo Producto</span>
@@ -209,7 +209,7 @@ export default async function VendorDashboardPage() {
               </p>
               <Link
                 href="/vendedor-panel/productos/nuevo"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-4 py-2 text-xs font-bold"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-4 py-2 text-xs font-bold"
               >
                 <PlusCircle className="h-4 w-4" />
                 <span>Publicar mi primer producto</span>
@@ -248,7 +248,7 @@ export default async function VendorDashboardPage() {
 
                   <div className="flex items-center gap-6">
                     <div className="text-right">
-                      <span className="font-bold text-[#ca9029] text-sm block">
+                      <span className="font-bold text-[#b03917] text-sm block">
                         {formatCurrency(product.price)}
                       </span>
                       <span className="text-xs text-[#373737]/65">
@@ -259,7 +259,7 @@ export default async function VendorDashboardPage() {
                     <Link
                       href={`/producto/${product.slug}`}
                       target="_blank"
-                      className="p-2 text-[#373737]/60 hover:text-[#ca9029] rounded-lg hover:bg-[#a8bca8]/20 transition-colors"
+                      className="p-2 text-[#373737]/60 hover:text-[#b03917] rounded-lg hover:bg-[#a8bca8]/20 transition-colors"
                       title="Ver página de venta"
                     >
                       <ExternalLink className="h-4 w-4" />

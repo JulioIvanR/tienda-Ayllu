@@ -101,7 +101,7 @@ export default function RegistroPage() {
               <p className="text-[#373737]/70 text-sm mb-6">
                 Requiere aprobación del administrador para iniciar sesión. Serás redirigido al login en unos momentos...
               </p>
-              <Loader2 className="h-6 w-6 animate-spin text-[#ca9029] mx-auto" />
+              <Loader2 className="h-6 w-6 animate-spin text-[#b03917] mx-auto" />
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function RegistroPage() {
           {/* Header */}
           <div className="bg-gradient-to-r from-[#2e5e4e] to-[#5d3805] px-6 py-8 text-center">
             <div className="flex justify-center mb-4">
-              <div className="h-12 w-12 rounded-2xl bg-[#ca9029] flex items-center justify-center">
+              <div className="h-12 w-12 rounded-2xl bg-[#b03917] flex items-center justify-center">
                 <UserPlus className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function RegistroPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tu nombre"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -165,7 +165,7 @@ export default function RegistroPage() {
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
                 placeholder="Nombre de tu tienda"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -182,7 +182,7 @@ export default function RegistroPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="tu@email.com"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -199,7 +199,7 @@ export default function RegistroPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -216,7 +216,7 @@ export default function RegistroPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -226,7 +226,7 @@ export default function RegistroPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-[#ca9029]/25"
+              className="w-full py-3 px-4 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-[#b03917]/25"
             >
               {isLoading ? (
                 <>
@@ -247,7 +247,7 @@ export default function RegistroPage() {
             ¿Ya tienes cuenta?{" "}
             <Link
               href="/login"
-              className="text-[#ca9029] hover:text-[#b57f22] font-semibold transition-colors"
+              className="text-[#b03917] hover:text-[#8f2c0f] font-semibold transition-colors"
             >
               Inicia sesión
             </Link>

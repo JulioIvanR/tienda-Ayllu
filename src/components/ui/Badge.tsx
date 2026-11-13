@@ -14,7 +14,7 @@ export function Badge({
   const variantStyles = {
     default: "bg-[#f1e7d5] text-[#373737] border border-[#dfd2be]",
     success: "bg-[#a8bca8]/35 text-[#2e5e4e] border border-[#a8bca8] font-semibold",
-    warning: "bg-[#ca9029]/20 text-[#5d3805] border border-[#ca9029]/50 font-semibold",
+    warning: "bg-[#b03917]/20 text-[#5d3805] border border-[#b03917]/50 font-semibold",
     danger: "bg-rose-100 text-rose-800 border border-rose-300",
     info: "bg-[#a8bca8]/40 text-[#2e5e4e] border border-[#a8bca8]",
     outline: "border border-[#dfd2be] text-[#373737]",

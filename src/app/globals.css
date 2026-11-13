@@ -4,8 +4,8 @@
   --color-brand-body: #373737;
   --color-brand-title: #2e5e4e;
   --color-brand-title2: #5d3805;
-  --color-brand-accent: #ca9029;
-  --color-brand-accent-hover: #b57f22;
+  --color-brand-accent: #b03917;
+  --color-brand-accent-hover: #8f2c0f;
   --color-brand-secondary: #a8bca8;
   --color-brand-bg: #f1e7d5;
   --color-brand-surface: #fcf8f0;
@@ -18,7 +18,7 @@
   --foreground: #373737;
   --title-primary: #2e5e4e;
   --title-secondary: #5d3805;
-  --color-accent: #ca9029;
+  --color-accent: #b03917;
   --color-secondary: #a8bca8;
 }
 
@@ -49,6 +49,6 @@ body {
 }
 
 ::selection {
-  background-color: #ca9029;
+  background-color: #b03917;
   color: #ffffff;
 }

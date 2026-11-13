@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  Home,
   ShieldCheck,
-  ShoppingBag,
   Store,
+  Users,
   LayoutDashboard,
   LogOut,
   User,
@@ -90,26 +91,23 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b border-[#dfd2be] bg-[#fcf8f0]/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center group" aria-label="Casa AYLLU - Inicio">
           <img
-            src="https://res.cloudinary.com/jwoctsqu/image/upload/v1794364409/Logo_Ilumina_Escuela_Horizontal_OK.webp"
-            alt="Logo Ilumina"
-            className="h-9 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+            src="https://res.cloudinary.com/jwoctsqu/image/upload/v1794581068/AYLLU.webp"
+            alt="Casa AYLLU"
+            className="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 transition-transform"
           />
-          <span className="font-bold text-lg tracking-tight text-[#2e5e4e]">
-            Tienda AYLLU
-          </span>
         </Link>
 
         {/* Navigation Links */}
         <nav className="flex items-center gap-1 sm:gap-2">
-          {/* Botón Tienda (siempre visible) */}
+          {/* Botón Inicio (siempre visible) */}
           <Link
             href="/"
             className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-[#2e5e4e] hover:bg-[#a8bca8]/20 rounded-lg transition-colors"
           >
-            <ShoppingBag className="h-4 w-4 text-[#2e5e4e]" />
-            <span className="hidden sm:inline">Tienda</span>
+            <Home className="h-4 w-4 text-[#2e5e4e]" />
+            <span className="hidden sm:inline">Inicio</span>
           </Link>
 
           {/* Directorio de Tiendas */}
@@ -117,14 +115,23 @@ export function Navbar() {
             href="/tiendas"
             className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-[#2e5e4e] hover:bg-[#a8bca8]/20 rounded-lg transition-colors"
           >
-            <Store className="h-4 w-4 text-[#ca9029]" />
+            <Store className="h-4 w-4 text-[#b03917]" />
             <span className="hidden sm:inline">Tiendas</span>
+          </Link>
+
+          {/* Nosotros */}
+          <Link
+            href="/nosotros"
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-[#2e5e4e] hover:bg-[#a8bca8]/20 rounded-lg transition-colors"
+          >
+            <Users className="h-4 w-4 text-[#2e5e4e]" />
+            <span className="hidden sm:inline">Nosotros</span>
           </Link>
 
           {/* Si está cargando, mostrar loader */}
           {isLoading ? (
             <div className="flex items-center gap-1.5 px-3 py-2">
-              <Loader2 className="h-4 w-4 animate-spin text-[#ca9029]" />
+              <Loader2 className="h-4 w-4 animate-spin text-[#b03917]" />
             </div>
           ) : user ? (
             <>
@@ -132,9 +139,9 @@ export function Navbar() {
               {user.role === "VENDOR" && (
                 <Link
                   href="/vendedor-panel"
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-[#ca9029] hover:bg-[#ca9029]/15 rounded-lg transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#373737] hover:text-[#b03917] hover:bg-[#b03917]/15 rounded-lg transition-colors"
                 >
-                  <LayoutDashboard className="h-4 w-4 text-[#ca9029]" />
+                  <LayoutDashboard className="h-4 w-4 text-[#b03917]" />
                   <span className="hidden sm:inline">Panel Vendedor</span>
                 </Link>
               )}
@@ -175,7 +182,7 @@ export function Navbar() {
             /* Botón Iniciar Sesión - Si NO está autenticado */
             <Link
               href="/login"
-              className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white bg-[#ca9029] hover:bg-[#b57f22] rounded-lg transition-colors shadow-md shadow-[#ca9029]/25"
+              className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white bg-[#b03917] hover:bg-[#8f2c0f] rounded-lg transition-colors shadow-md shadow-[#b03917]/25"
             >
               <User className="h-4 w-4" />
               <span>Iniciar sesión</span>

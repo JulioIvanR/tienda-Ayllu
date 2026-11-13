@@ -100,7 +100,7 @@ export function VendorProductsTable({
 
         <Link
           href="/vendedor-panel/productos/nuevo"
-          className="inline-flex items-center gap-2 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-4 py-2.5 text-sm font-bold shadow-2xs transition-colors self-start sm:self-auto"
+          className="inline-flex items-center gap-2 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-4 py-2.5 text-sm font-bold shadow-2xs transition-colors self-start sm:self-auto"
         >
           <PlusCircle className="h-4 w-4" />
           <span>Publicar Producto</span>
@@ -110,13 +110,13 @@ export function VendorProductsTable({
       <div className="overflow-hidden rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] shadow-xs">
         {products.length === 0 ? (
           <div className="p-10 text-center space-y-3">
-            <Package className="h-10 w-10 text-[#ca9029] mx-auto opacity-80" />
+            <Package className="h-10 w-10 text-[#b03917] mx-auto opacity-80" />
             <p className="text-sm font-semibold text-[#5d3805]">
               Tu tienda aún no tiene productos publicados.
             </p>
             <Link
               href="/vendedor-panel/productos/nuevo"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-4 py-2 text-xs font-bold"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-4 py-2 text-xs font-bold"
             >
               <PlusCircle className="h-4 w-4" />
               <span>Publicar primer producto</span>
@@ -165,7 +165,7 @@ export function VendorProductsTable({
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 font-black text-[#ca9029]">
+                    <td className="px-6 py-4 font-black text-[#b03917]">
                       {formatCurrency(Number(product.price))}
                     </td>
                     <td className="px-6 py-4">
@@ -202,7 +202,7 @@ export function VendorProductsTable({
                         <Link
                           href={`/producto/${product.slug}`}
                           target="_blank"
-                          className="p-2 text-[#373737]/65 hover:text-[#ca9029] rounded-lg hover:bg-[#a8bca8]/20 transition-colors"
+                          className="p-2 text-[#373737]/65 hover:text-[#b03917] rounded-lg hover:bg-[#a8bca8]/20 transition-colors"
                           title="Ver en tienda"
                         >
                           <ExternalLink className="h-4 w-4" />

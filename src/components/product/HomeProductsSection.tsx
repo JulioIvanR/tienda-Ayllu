@@ -176,7 +176,7 @@ export function HomeProductsSection({
             onClick={() => handleSelectCategory(cat.id)}
             className={`rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedCategory === cat.id
-                ? "bg-[#ca9029] text-white shadow-sm"
+                ? "bg-[#b03917] text-white shadow-sm"
                 : "bg-[#fdfbf6] text-[#373737] hover:bg-[#a8bca8]/25 border border-[#dfd2be]"
             }`}
           >
@@ -188,7 +188,7 @@ export function HomeProductsSection({
       {/* Products Grid */}
       {isFiltering && products.length === 0 ? (
         <div className="flex items-center justify-center py-16">
-          <Loader2 className="h-8 w-8 animate-spin text-[#ca9029]" />
+          <Loader2 className="h-8 w-8 animate-spin text-[#b03917]" />
         </div>
       ) : products.length > 0 ? (
         <div
@@ -218,7 +218,7 @@ export function HomeProductsSection({
             <button
               type="button"
               onClick={() => handleSelectCategory("all")}
-              className="mt-4 rounded-xl bg-[#ca9029] text-white px-4 py-2 text-xs font-bold hover:bg-[#b57f22] cursor-pointer transition-colors"
+              className="mt-4 rounded-xl bg-[#b03917] text-white px-4 py-2 text-xs font-bold hover:bg-[#8f2c0f] cursor-pointer transition-colors"
             >
               Ver todas las categorías
             </button>
@@ -237,7 +237,7 @@ export function HomeProductsSection({
                 ? handleSelectCategory(selectedCategory)
                 : loadMore()
             }
-            className="rounded-xl bg-[#ca9029] px-4 py-2 text-xs font-bold text-white hover:bg-[#b57f22] cursor-pointer"
+            className="rounded-xl bg-[#b03917] px-4 py-2 text-xs font-bold text-white hover:bg-[#8f2c0f] cursor-pointer"
           >
             Reintentar
           </button>
@@ -247,7 +247,7 @@ export function HomeProductsSection({
       {/* Infinite Scroll Loading Indicator */}
       {isLoadingMore && (
         <div className="flex items-center justify-center gap-2 py-6 text-sm font-medium text-[#5d3805]">
-          <Loader2 className="h-5 w-5 animate-spin text-[#ca9029]" />
+          <Loader2 className="h-5 w-5 animate-spin text-[#b03917]" />
           <span>Cargando más productos...</span>
         </div>
       )}

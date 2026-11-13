@@ -114,8 +114,8 @@ export function UsersTable({ initialUsers }: UsersTableProps) {
                         </>
                       ) : (
                         <>
-                          <Store className="h-4 w-4 text-[#ca9029]" />
-                          <span className="font-bold text-[#ca9029] text-xs">Vendedor</span>
+                          <Store className="h-4 w-4 text-[#b03917]" />
+                          <span className="font-bold text-[#b03917] text-xs">Vendedor</span>
                         </>
                       )}
                     </div>

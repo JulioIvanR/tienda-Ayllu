@@ -21,7 +21,7 @@ export default function VendedorIndex() {
       <div className="mx-auto max-w-4xl space-y-8">
         <div className="rounded-3xl border border-[#dfd2be] bg-[#fdfbf6] p-8 sm:p-10 shadow-sm space-y-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#a8bca8] bg-[#a8bca8]/25 px-3.5 py-1 text-xs font-semibold text-[#2e5e4e]">
-            <Store className="h-3.5 w-3.5 text-[#ca9029]" />
+            <Store className="h-3.5 w-3.5 text-[#b03917]" />
             <span>Espacio de Tiendas y Vendedores</span>
           </div>
 
@@ -37,40 +37,40 @@ export default function VendedorIndex() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <Link
               href="/tiendas"
-              className="group flex flex-col justify-between rounded-2xl border border-[#dfd2be] bg-white p-6 hover:border-[#ca9029] hover:shadow-md transition-all"
+              className="group flex flex-col justify-between rounded-2xl border border-[#dfd2be] bg-white p-6 hover:border-[#b03917] hover:shadow-md transition-all"
             >
               <div className="space-y-2">
                 <div className="h-10 w-10 rounded-xl bg-[#a8bca8]/30 text-[#2e5e4e] flex items-center justify-center">
                   <ShoppingBag className="h-5 w-5" />
                 </div>
-                <h2 className="text-lg font-bold text-[#5d3805] group-hover:text-[#ca9029]">
+                <h2 className="text-lg font-bold text-[#5d3805] group-hover:text-[#b03917]">
                   Ver Todas las Tiendas
                 </h2>
                 <p className="text-sm text-[#373737]/75">
                   Explora todas las mini-tiendas verificadas y compra directo con cada vendedor.
                 </p>
               </div>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#ca9029]">
+              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#b03917]">
                 Ir al directorio <ArrowRight className="h-3.5 w-3.5" />
               </span>
             </Link>
 
             <Link
               href="/vendedor-panel"
-              className="group flex flex-col justify-between rounded-2xl border border-[#dfd2be] bg-white p-6 hover:border-[#ca9029] hover:shadow-md transition-all"
+              className="group flex flex-col justify-between rounded-2xl border border-[#dfd2be] bg-white p-6 hover:border-[#b03917] hover:shadow-md transition-all"
             >
               <div className="space-y-2">
-                <div className="h-10 w-10 rounded-xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+                <div className="h-10 w-10 rounded-xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
                   <LayoutDashboard className="h-5 w-5" />
                 </div>
-                <h2 className="text-lg font-bold text-[#5d3805] group-hover:text-[#ca9029]">
+                <h2 className="text-lg font-bold text-[#5d3805] group-hover:text-[#b03917]">
                   Panel de Vendedor
                 </h2>
                 <p className="text-sm text-[#373737]/75">
                   Administra tu perfil, sube logotipo/banner y publica productos en tu tienda.
                 </p>
               </div>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#ca9029]">
+              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#b03917]">
                 Ingresar al panel <ArrowRight className="h-3.5 w-3.5" />
               </span>
             </Link>
@@ -86,14 +86,14 @@ export default function VendedorIndex() {
             </Link>
             <Link
               href="/registro"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-4 py-2.5 text-xs font-bold transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-4 py-2.5 text-xs font-bold transition-colors"
             >
               <UserPlus className="h-4 w-4" />
               <span>Registrar nueva tienda</span>
             </Link>
             <Link
               href="/vendedor/dashboard"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-[#dfd2be] bg-white px-4 py-2.5 text-xs font-bold text-[#5d3805] hover:border-[#ca9029]"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#dfd2be] bg-white px-4 py-2.5 text-xs font-bold text-[#5d3805] hover:border-[#b03917]"
             >
               <span>Dashboard provisional</span>
             </Link>

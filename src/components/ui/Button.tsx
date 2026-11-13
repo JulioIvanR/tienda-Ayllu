@@ -22,7 +22,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const variantStyles = {
       primary:
-        "bg-[#ca9029] text-white hover:bg-[#b57f22] shadow-sm font-semibold focus-visible:ring-[#ca9029] active:scale-[0.99]",
+        "bg-[#b03917] text-white hover:bg-[#8f2c0f] shadow-sm font-semibold focus-visible:ring-[#b03917] active:scale-[0.99]",
       whatsapp:
         "bg-[#25D366] text-white hover:bg-[#20bd5a] shadow-sm font-semibold focus-visible:ring-[#25D366] active:scale-[0.99]",
       secondary:

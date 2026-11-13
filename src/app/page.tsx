@@ -1,8 +1,6 @@
 import Link from "next/link";
 import {
-  ShoppingBag,
   ArrowRight,
-  Sparkles,
   Store,
 } from "lucide-react";
 import {
@@ -31,30 +29,35 @@ export default async function HomePage() {
   return (
     <div className="space-y-16 pb-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#fbf7ee] border-b border-[#dfd2be] py-16 sm:py-24">
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#a8bca8]/20 via-[#ca9029]/10 to-transparent" />
+      <section className="relative overflow-hidden min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] flex items-center bg-[#1a231f] border-b border-[#dfd2be]">
+        {/* Imagen de fondo */}
+        <div
+          className="absolute inset-0 bg-cover bg-center sm:bg-right"
+          style={{
+            backgroundImage: `url('https://res.cloudinary.com/jwoctsqu/image/upload/v1794590379/hero_ayllu.webp')`,
+          }}
+        />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#a8bca8] bg-[#a8bca8]/25 px-3.5 py-1 text-xs font-semibold text-[#2e5e4e]">
-              <Sparkles className="h-3.5 w-3.5 text-[#ca9029]" />
-              <span>Next.js App Router + Prisma PostgreSQL + WhatsApp API</span>
-            </div>
+        {/* Degradado oscuro para asegurar contraste y legibilidad óptima */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30 sm:to-transparent" />
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#2e5e4e] leading-[1.1]">
-              Nadie llega a ser quien es por sí solo
+        <div className="relative mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <div className="max-w-2xl sm:max-w-3xl space-y-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#b8ceb8] leading-[1.15]">
+              E-commerce de la<br />
+              Comunidad ILUMINA
             </h1>
 
-            <p className="text-lg text-[#373737] leading-relaxed">
-              En el Ayllu ILUMINA, quienes caminan el despertar comparten lo que su proceso ha hecho florecer; al elegir lo que otro creó, sostienes su camino, y él sostiene el tuyo.
+            <p className="text-base sm:text-lg text-white/90 max-w-xl leading-relaxed">
+              En Casa Ayllu encuentras productos y servicios de los estudiantes de ILUMINA. Un espacio hecho para apoyarnos en comunidad
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="pt-2">
               <Link
                 href="/registro"
-                className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-6 py-3.5 text-sm font-bold shadow-md shadow-[#ca9029]/25 transition-all hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-2xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-6 py-3.5 text-sm font-bold shadow-lg shadow-black/30 transition-all hover:scale-[1.02]"
               >
-                <ShoppingBag className="h-4 w-4" />
+                <Store className="h-4 w-4" />
                 <span>Registra mi tienda</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -85,7 +88,7 @@ export default async function HomePage() {
         <div className="mt-8 flex justify-center">
           <Link
             href="/tiendas"
-            className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-6 py-3 text-sm font-bold shadow-md shadow-[#ca9029]/25 transition-all hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-6 py-3 text-sm font-bold shadow-md shadow-[#b03917]/25 transition-all hover:scale-[1.02]"
           >
             <Store className="h-4 w-4" />
             <span>Ver todas las tiendas</span>

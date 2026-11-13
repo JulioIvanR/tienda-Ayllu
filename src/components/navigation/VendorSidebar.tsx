@@ -48,7 +48,7 @@ export function VendorSidebar({ storeName, storeSlug }: VendorSidebarProps) {
     <aside className="w-64 shrink-0 border-r border-[#dfd2be] bg-[#fcf8f0] p-4 min-h-[calc(100vh-4rem)]">
       <div className="px-3 py-2 space-y-1">
         <div className="flex items-center gap-2 text-[#5d3805] font-bold text-sm">
-          <SlidersHorizontal className="h-5 w-5 text-[#ca9029]" />
+          <SlidersHorizontal className="h-5 w-5 text-[#b03917]" />
           <span>Panel de Vendedor</span>
         </div>
         {storeName && (
@@ -69,11 +69,11 @@ export function VendorSidebar({ storeName, storeSlug }: VendorSidebarProps) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors",
                 isActive
-                  ? "bg-[#ca9029]/20 text-[#5d3805]"
+                  ? "bg-[#b03917]/20 text-[#5d3805]"
                   : "text-[#373737] hover:bg-[#a8bca8]/25 hover:text-[#2e5e4e]"
               )}
             >
-              <Icon className="h-4 w-4 text-[#ca9029]" />
+              <Icon className="h-4 w-4 text-[#b03917]" />
               <span>{item.name}</span>
             </Link>
           );

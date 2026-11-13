@@ -19,7 +19,7 @@ export default async function VendorProductsPage() {
     return (
       <div className="max-w-xl rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 space-y-4">
         <div className="flex items-center gap-2 text-[#5d3805] font-bold">
-          <ShieldAlert className="h-5 w-5 text-[#ca9029]" />
+          <ShieldAlert className="h-5 w-5 text-[#b03917]" />
           <span>Cuenta sin tienda de vendedor asignada</span>
         </div>
         <p className="text-sm text-[#373737]/80">
@@ -27,7 +27,7 @@ export default async function VendorProductsPage() {
         </p>
         <Link
           href="/login"
-          className="inline-flex items-center rounded-xl bg-[#ca9029] px-4 py-2 text-xs font-bold text-white hover:bg-[#b57f22]"
+          className="inline-flex items-center rounded-xl bg-[#b03917] px-4 py-2 text-xs font-bold text-white hover:bg-[#8f2c0f]"
         >
           Cambiar de cuenta
         </Link>

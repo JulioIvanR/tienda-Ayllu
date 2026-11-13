@@ -19,12 +19,12 @@ export default async function TiendasPage() {
     <div className="space-y-10 pb-20">
       {/* Header Banner */}
       <section className="relative overflow-hidden bg-[#fbf7ee] border-b border-[#dfd2be] py-12 sm:py-16">
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#a8bca8]/20 via-[#ca9029]/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#a8bca8]/20 via-[#b03917]/10 to-transparent" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-5">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ca9029] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#b03917] hover:underline"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>Volver al inicio</span>
@@ -33,7 +33,7 @@ export default async function TiendasPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#a8bca8] bg-[#a8bca8]/25 px-3.5 py-1 text-xs font-semibold text-[#2e5e4e]">
-                <Store className="h-3.5 w-3.5 text-[#ca9029]" />
+                <Store className="h-3.5 w-3.5 text-[#b03917]" />
                 <span>
                   {total} {total === 1 ? "tienda verificada" : "tiendas verificadas"}
                 </span>
@@ -50,7 +50,7 @@ export default async function TiendasPage() {
 
             <Link
               href="/registro"
-              className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-5 py-3 text-sm font-bold shadow-md shadow-[#ca9029]/25 transition-all hover:scale-[1.02] self-start md:self-auto shrink-0"
+              className="inline-flex items-center gap-2 rounded-2xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-5 py-3 text-sm font-bold shadow-md shadow-[#b03917]/25 transition-all hover:scale-[1.02] self-start md:self-auto shrink-0"
             >
               <ShoppingBag className="h-4 w-4" />
               <span>Registra mi tienda</span>

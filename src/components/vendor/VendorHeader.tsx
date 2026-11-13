@@ -13,7 +13,7 @@ export function VendorHeader({ vendor, productCount = 0 }: VendorHeaderProps) {
   return (
     <div className="relative mb-8 rounded-3xl overflow-hidden border border-[#dfd2be] bg-[#fdfbf6] shadow-xs">
       {/* Banner */}
-      <div className="relative h-48 sm:h-64 w-full bg-gradient-to-r from-[#2e5e4e] via-[#5d3805] to-[#ca9029]">
+      <div className="relative h-48 sm:h-64 w-full bg-gradient-to-r from-[#2e5e4e] via-[#5d3805] to-[#b03917]">
         {vendor.bannerUrl && (
           <img
             src={vendor.bannerUrl}
@@ -55,7 +55,7 @@ export function VendorHeader({ vendor, productCount = 0 }: VendorHeaderProps) {
               </div>
               {vendor.city && (
                 <p className="flex items-center gap-1 text-sm text-[#373737]/75 mt-0.5">
-                  <MapPin className="h-3.5 w-3.5 text-[#ca9029]" />
+                  <MapPin className="h-3.5 w-3.5 text-[#b03917]" />
                   <span>{vendor.city}</span>
                   {vendor.address && <span>• {vendor.address}</span>}
                 </p>

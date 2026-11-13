@@ -70,7 +70,7 @@ export default function VendedorDashboard() {
 
             <Link
               href="/vendedor-panel"
-              className="inline-flex items-center gap-2 rounded-2xl bg-[#ca9029] hover:bg-[#b57f22] text-white px-5 py-3 text-sm font-bold shadow-sm transition-colors self-start sm:self-auto shrink-0"
+              className="inline-flex items-center gap-2 rounded-2xl bg-[#b03917] hover:bg-[#8f2c0f] text-white px-5 py-3 text-sm font-bold shadow-sm transition-colors self-start sm:self-auto shrink-0"
             >
               <span>Ir al Panel Principal</span>
               <ArrowRight className="h-4 w-4" />
@@ -86,13 +86,13 @@ export default function VendedorDashboard() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex flex-col justify-between rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 shadow-xs transition-all hover:-translate-y-0.5 hover:border-[#ca9029] hover:shadow-md"
+                className="group flex flex-col justify-between rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 shadow-xs transition-all hover:-translate-y-0.5 hover:border-[#b03917] hover:shadow-md"
               >
                 <div className="space-y-3">
                   <div className="h-11 w-11 rounded-2xl bg-[#a8bca8]/30 text-[#2e5e4e] flex items-center justify-center">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h2 className="text-lg font-bold text-[#5d3805] group-hover:text-[#ca9029] transition-colors">
+                  <h2 className="text-lg font-bold text-[#5d3805] group-hover:text-[#b03917] transition-colors">
                     {item.title}
                   </h2>
                   <p className="text-sm text-[#373737]/80 leading-relaxed">
@@ -100,7 +100,7 @@ export default function VendedorDashboard() {
                   </p>
                 </div>
 
-                <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-[#ca9029]">
+                <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-[#b03917]">
                   <span>{item.cta}</span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -113,7 +113,7 @@ export default function VendedorDashboard() {
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#dfd2be] pt-6 text-sm">
           <Link
             href="/tiendas"
-            className="font-semibold text-[#2e5e4e] hover:text-[#ca9029] transition-colors"
+            className="font-semibold text-[#2e5e4e] hover:text-[#b03917] transition-colors"
           >
             Explorar todas las tiendas &rarr;
           </Link>

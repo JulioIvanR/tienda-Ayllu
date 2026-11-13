@@ -61,7 +61,7 @@ export function StoresDirectory({ vendors }: StoresDirectoryProps) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar tienda por nombre, ciudad o descripción..."
-              className="w-full rounded-xl border border-[#dfd2be] bg-white pl-10 pr-9 py-2.5 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+              className="w-full rounded-xl border border-[#dfd2be] bg-white pl-10 pr-9 py-2.5 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
             />
             {searchTerm && (
               <button
@@ -89,7 +89,7 @@ export function StoresDirectory({ vendors }: StoresDirectoryProps) {
               className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                 selectedCity === "all"
                   ? "bg-[#2e5e4e] text-white shadow-xs"
-                  : "border border-[#dfd2be] bg-white text-[#5d3805] hover:border-[#ca9029] hover:text-[#ca9029]"
+                  : "border border-[#dfd2be] bg-white text-[#5d3805] hover:border-[#b03917] hover:text-[#b03917]"
               }`}
             >
               Todas las ciudades
@@ -104,7 +104,7 @@ export function StoresDirectory({ vendors }: StoresDirectoryProps) {
                   className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                     isActive
                       ? "bg-[#2e5e4e] text-white shadow-xs"
-                      : "border border-[#dfd2be] bg-white text-[#5d3805] hover:border-[#ca9029] hover:text-[#ca9029]"
+                      : "border border-[#dfd2be] bg-white text-[#5d3805] hover:border-[#b03917] hover:text-[#b03917]"
                   }`}
                 >
                   {city}
@@ -118,7 +118,7 @@ export function StoresDirectory({ vendors }: StoresDirectoryProps) {
       {/* Stores Grid */}
       {filteredVendors.length === 0 ? (
         <div className="rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-12 text-center space-y-3">
-          <Store className="h-10 w-10 text-[#ca9029] mx-auto opacity-80" />
+          <Store className="h-10 w-10 text-[#b03917] mx-auto opacity-80" />
           <h3 className="text-lg font-bold text-[#2e5e4e]">
             No encontramos tiendas que coincidan
           </h3>
@@ -131,14 +131,14 @@ export function StoresDirectory({ vendors }: StoresDirectoryProps) {
             <button
               type="button"
               onClick={clearFilters}
-              className="inline-flex items-center rounded-xl bg-[#ca9029] hover:bg-[#b57f22] px-4 py-2 text-xs font-bold text-white cursor-pointer"
+              className="inline-flex items-center rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] px-4 py-2 text-xs font-bold text-white cursor-pointer"
             >
               Mostrar todas las tiendas
             </button>
           ) : (
             <Link
               href="/registro"
-              className="inline-flex items-center rounded-xl bg-[#ca9029] hover:bg-[#b57f22] px-4 py-2 text-xs font-bold text-white"
+              className="inline-flex items-center rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] px-4 py-2 text-xs font-bold text-white"
             >
               Registrar una tienda
             </Link>

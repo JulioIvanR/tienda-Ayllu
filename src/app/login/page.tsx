@@ -59,7 +59,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="bg-gradient-to-r from-[#2e5e4e] to-[#5d3805] px-6 py-8 text-center">
             <div className="flex justify-center mb-4">
-              <div className="h-12 w-12 rounded-2xl bg-[#ca9029] flex items-center justify-center">
+              <div className="h-12 w-12 rounded-2xl bg-[#b03917] flex items-center justify-center">
                 <LogIn className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -90,7 +90,7 @@ export default function LoginPage() {
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 placeholder="tu@email.com o usuario"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -107,7 +107,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#ca9029] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-[#dfd2be] bg-[#fdfbf6] text-[#2e5e4e] placeholder-[#373737]/50 focus:outline-none focus:ring-2 focus:ring-[#b03917] focus:border-transparent transition-all"
                 required
                 disabled={isLoading}
               />
@@ -117,7 +117,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 rounded-xl bg-[#ca9029] hover:bg-[#b57f22] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-[#ca9029]/25 cursor-pointer"
+              className="w-full py-3 px-4 rounded-xl bg-[#b03917] hover:bg-[#8f2c0f] text-white font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-[#b03917]/25 cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -156,7 +156,7 @@ export default function LoginPage() {
             ¿Necesitas ayuda?{" "}
             <Link
               href="/"
-              className="text-[#ca9029] hover:text-[#b57f22] font-semibold transition-colors"
+              className="text-[#b03917] hover:text-[#8f2c0f] font-semibold transition-colors"
             >
               Volver al inicio
             </Link>

@@ -112,11 +112,11 @@ export default async function AdminDashboardPage() {
           <CardContent className="p-0 flex items-center justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">Vendedores Pendientes</p>
-              <p className="text-2xl font-black text-[#ca9029] mt-1">
+              <p className="text-2xl font-black text-[#b03917] mt-1">
                 {data.stats.pendingUsersCount}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
               <Clock className="h-5 w-5" />
             </div>
           </CardContent>
@@ -140,11 +140,11 @@ export default async function AdminDashboardPage() {
           <CardContent className="p-0 flex items-center justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-[#5d3805]/70">Categorías Solicitadas</p>
-              <p className="text-2xl font-black text-[#ca9029] mt-1">
+              <p className="text-2xl font-black text-[#b03917] mt-1">
                 {data.stats.pendingCategoriesCount}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
               <CheckCircle2 className="h-5 w-5" />
             </div>
           </CardContent>
@@ -164,7 +164,7 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/usuarios"
-            className="text-xs font-bold text-[#ca9029] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#b03917] hover:underline flex items-center gap-1"
           >
             <span>Ver todo</span>
             <ArrowRight className="h-3 w-3" />
@@ -187,7 +187,7 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/categorias"
-            className="text-xs font-bold text-[#ca9029] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#b03917] hover:underline flex items-center gap-1"
           >
             <span>Gestionar categorías</span>
             <ArrowRight className="h-3 w-3" />

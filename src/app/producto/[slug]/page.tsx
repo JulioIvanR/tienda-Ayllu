@@ -132,13 +132,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
       {/* Breadcrumb & Navigation */}
       <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#373737]/75">
-        <Link href="/" className="hover:text-[#ca9029] transition-colors">
+        <Link href="/" className="hover:text-[#b03917] transition-colors">
           Inicio
         </Link>
         <span>/</span>
         <Link
           href={`/vendedor/${vendor.slug}`}
-          className="hover:underline font-semibold text-[#ca9029]"
+          className="hover:underline font-semibold text-[#b03917]"
         >
           {vendor.storeName}
         </Link>
@@ -160,7 +160,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
           {/* Vendor Pill */}
           <Link
             href={`/vendedor/${vendor.slug}`}
-            className="inline-flex items-center gap-2 rounded-full border border-[#dfd2be] bg-[#fdfbf6] px-3.5 py-1.5 text-xs font-semibold text-[#373737] shadow-2xs hover:border-[#ca9029] hover:text-[#ca9029] transition-colors"
+            className="inline-flex items-center gap-2 rounded-full border border-[#dfd2be] bg-[#fdfbf6] px-3.5 py-1.5 text-xs font-semibold text-[#373737] shadow-2xs hover:border-[#b03917] hover:text-[#b03917] transition-colors"
           >
             <Store className="h-3.5 w-3.5 text-[#2e5e4e]" />
             <span>Vendido por: <strong className="text-[#5d3805]">{vendor.storeName}</strong></span>
@@ -229,7 +229,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </h2>
             <Link
               href={`/vendedor/${vendor.slug}`}
-              className="text-xs sm:text-sm font-bold text-[#ca9029] hover:underline"
+              className="text-xs sm:text-sm font-bold text-[#b03917] hover:underline"
             >
               Ver toda la tienda &rarr;
             </Link>

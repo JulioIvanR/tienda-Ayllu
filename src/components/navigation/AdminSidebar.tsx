@@ -29,7 +29,7 @@ export function AdminSidebar() {
   return (
     <aside className="w-64 shrink-0 border-r border-[#dfd2be] bg-[#fcf8f0] p-4 min-h-[calc(100vh-4rem)]">
       <div className="flex items-center gap-2 px-3 py-2 text-[#2e5e4e] font-bold text-sm">
-        <ShieldCheck className="h-5 w-5 text-[#ca9029]" />
+        <ShieldCheck className="h-5 w-5 text-[#b03917]" />
         <span>Panel Super Admin</span>
       </div>
 

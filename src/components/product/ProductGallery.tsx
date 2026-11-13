@@ -37,7 +37,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
               className={cn(
                 "relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all cursor-pointer",
                 selectedIndex === idx
-                  ? "border-[#ca9029] ring-2 ring-[#ca9029]/30"
+                  ? "border-[#b03917] ring-2 ring-[#b03917]/30"
                   : "border-transparent opacity-70 hover:opacity-100"
               )}
             >

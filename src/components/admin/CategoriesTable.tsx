@@ -139,7 +139,7 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
             className="rounded-2xl border border-[#dfd2be] bg-[#f1e7d5]/60 p-5 space-y-4"
           >
             <div className="flex items-center gap-2 text-[#5d3805] font-bold text-sm">
-              <Sparkles className="h-4 w-4 text-[#ca9029]" />
+              <Sparkles className="h-4 w-4 text-[#b03917]" />
               <span>Crear Categoría Global</span>
             </div>
 
@@ -154,7 +154,7 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="Ej: Calzado Deportivo"
-                  className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+                  className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
                 />
               </div>
 
@@ -167,7 +167,7 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
                   placeholder="Ej: Zapatillas para running y entrenamiento"
-                  className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+                  className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
                 />
               </div>
             </div>
@@ -210,7 +210,7 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                   <tr key={cat.id} className="hover:bg-[#f1e7d5]/40 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Tag className="h-4 w-4 text-[#ca9029]" />
+                        <Tag className="h-4 w-4 text-[#b03917]" />
                         <div>
                           <span className="font-bold text-[#2e5e4e] block">
                             {cat.name}
@@ -227,7 +227,7 @@ export function CategoriesTable({ initialCategories }: CategoriesTableProps) {
                     <td className="px-6 py-4 text-xs">
                       {cat.requestedById ? (
                         <span 
-                          className="text-[#5d3805] bg-[#ca9029]/20 border border-[#ca9029]/40 px-2.5 py-1 rounded-md font-bold"
+                          className="text-[#5d3805] bg-[#b03917]/20 border border-[#b03917]/40 px-2.5 py-1 rounded-md font-bold"
                           suppressHydrationWarning={true}
                         >
                           Solicitada por Vendedor

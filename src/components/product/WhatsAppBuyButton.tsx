@@ -122,7 +122,7 @@ export function WhatsAppBuyButton({
             <span className="text-xs font-bold uppercase tracking-wider text-[#5d3805] block">
               Total estimado
             </span>
-            <span className="text-2xl font-black text-[#ca9029]">
+            <span className="text-2xl font-black text-[#b03917]">
               {formatCurrency(totalPrice)}
             </span>
             <span className="block text-xs text-[#373737]/70">
@@ -141,7 +141,7 @@ export function WhatsAppBuyButton({
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Ej: Talla M, entrega en horario de la tarde, etc."
-            className="w-full rounded-xl border border-[#dfd2be] bg-white px-3.5 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+            className="w-full rounded-xl border border-[#dfd2be] bg-white px-3.5 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
           />
         </div>
 

@@ -210,7 +210,7 @@ export default function NewProductPage() {
       <div>
         <Link
           href="/vendedor-panel/productos"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ca9029] hover:underline mb-3"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#b03917] hover:underline mb-3"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Volver al catálogo</span>
@@ -225,7 +225,7 @@ export default function NewProductPage() {
 
       {success ? (
         <div className="rounded-2xl border border-[#a8bca8] bg-[#a8bca8]/25 p-6 text-center text-[#2e5e4e]">
-          <Sparkles className="h-8 w-8 mx-auto mb-2 text-[#ca9029]" />
+          <Sparkles className="h-8 w-8 mx-auto mb-2 text-[#b03917]" />
           <h3 className="font-bold text-lg">¡Producto publicado con éxito!</h3>
           <p className="text-sm mt-1">Redirigiendo a tu lista de productos...</p>
         </div>
@@ -290,7 +290,7 @@ export default function NewProductPage() {
                   <button
                     type="button"
                     onClick={() => setShowCategoryModal(!showCategoryModal)}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#ca9029] hover:underline cursor-pointer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#b03917] hover:underline cursor-pointer"
                   >
                     <Plus className="h-3 w-3" />
                     <span>Solicitar nueva</span>
@@ -306,14 +306,14 @@ export default function NewProductPage() {
                       setCategoryId(e.target.value);
                     }
                   }}
-                  className="w-full h-10 rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+                  className="w-full h-10 rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#b03917]"
                 >
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.name} {cat.status === "PENDING" ? "(⏳ Pendiente de aprobación)" : ""}
                     </option>
                   ))}
-                  <option value="NEW_REQUEST" className="font-bold text-[#ca9029]">
+                  <option value="NEW_REQUEST" className="font-bold text-[#b03917]">
                     + Solicitar nueva categoría al administrador...
                   </option>
                 </select>
@@ -322,10 +322,10 @@ export default function NewProductPage() {
 
             {/* Request Category Collapsible Form */}
             {showCategoryModal && (
-              <div className="rounded-2xl border border-[#ca9029]/50 bg-[#ca9029]/10 p-5 space-y-4 animate-in fade-in duration-200">
+              <div className="rounded-2xl border border-[#b03917]/50 bg-[#b03917]/10 p-5 space-y-4 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-[#5d3805] font-bold text-sm">
-                    <Tag className="h-4 w-4 text-[#ca9029]" />
+                    <Tag className="h-4 w-4 text-[#b03917]" />
                     <span>Solicitar Nueva Categoría al Super Administrador</span>
                   </div>
                   <button
@@ -338,7 +338,7 @@ export default function NewProductPage() {
                 </div>
 
                 <div className="rounded-xl border border-[#dfd2be] bg-white/80 p-3 text-xs text-[#373737] leading-relaxed flex items-start gap-2">
-                  <Clock className="h-4 w-4 text-[#ca9029] shrink-0 mt-0.5" />
+                  <Clock className="h-4 w-4 text-[#b03917] shrink-0 mt-0.5" />
                   <span>
                     La categoría solicitada se creará con estado <strong>"Pendiente"</strong> y será evaluada por el <strong>Super Administrador</strong> en su panel. Puedes seleccionarla y publicar tu producto de inmediato.
                   </span>
@@ -354,7 +354,7 @@ export default function NewProductPage() {
                       value={newCatName}
                       onChange={(e) => setNewCatName(e.target.value)}
                       placeholder="Ej: Joyería & Accesorios"
-                      className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+                      className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
                     />
                   </div>
 
@@ -367,7 +367,7 @@ export default function NewProductPage() {
                       value={newCatDesc}
                       onChange={(e) => setNewCatDesc(e.target.value)}
                       placeholder="Ej: Joyas artesanales, collares y pulseras"
-                      className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+                      className="w-full rounded-xl border border-[#dfd2be] bg-white px-3 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
                     />
                   </div>
                 </div>
@@ -431,12 +431,12 @@ export default function NewProductPage() {
                   onClick={() => !isUploading && fileInputRef.current?.click()}
                   className={`flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${
                     isUploading
-                      ? "border-[#ca9029] bg-[#ca9029]/10 cursor-wait"
-                      : "border-[#dfd2be] bg-white/70 hover:border-[#ca9029] hover:bg-[#f1e7d5]/30"
+                      ? "border-[#b03917] bg-[#b03917]/10 cursor-wait"
+                      : "border-[#dfd2be] bg-white/70 hover:border-[#b03917] hover:bg-[#f1e7d5]/30"
                   }`}
                 >
                   {isUploading ? (
-                    <div className="flex flex-col items-center space-y-2 text-[#ca9029]">
+                    <div className="flex flex-col items-center space-y-2 text-[#b03917]">
                       <Loader2 className="h-10 w-10 animate-spin" />
                       <p className="font-bold text-sm">Subiendo imagen a Cloudinary...</p>
                       <p className="text-xs text-[#373737]/70">
@@ -445,7 +445,7 @@ export default function NewProductPage() {
                     </div>
                   ) : (
                     <div className="flex flex-col items-center space-y-2 text-center">
-                      <div className="h-12 w-12 rounded-2xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+                      <div className="h-12 w-12 rounded-2xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
                         <UploadCloud className="h-6 w-6" />
                       </div>
                       <p className="font-bold text-sm text-[#5d3805]">
@@ -515,7 +515,7 @@ export default function NewProductPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe los beneficios, especificaciones técnicas, materiales o instrucciones de tu producto..."
-                className="w-full rounded-xl border border-[#dfd2be] bg-white p-3 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+                className="w-full rounded-xl border border-[#dfd2be] bg-white p-3 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
               />
             </div>
           </div>

@@ -52,7 +52,7 @@ export function StoreCatalog({ products, categories, vendor }: StoreCatalogProps
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
                   selectedCategory === cat.id
-                    ? "bg-[#ca9029] text-white shadow-sm"
+                    ? "bg-[#b03917] text-white shadow-sm"
                     : "bg-[#fdfbf6] text-[#373737] hover:bg-[#a8bca8]/25 border border-[#dfd2be]"
                 }`}
               >
@@ -70,7 +70,7 @@ export function StoreCatalog({ products, categories, vendor }: StoreCatalogProps
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar en el catálogo..."
-            className="w-full rounded-xl border border-[#dfd2be] bg-white pl-10 pr-4 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+            className="w-full rounded-xl border border-[#dfd2be] bg-white pl-10 pr-4 py-2 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
           />
         </div>
       </div>
@@ -102,7 +102,7 @@ export function StoreCatalog({ products, categories, vendor }: StoreCatalogProps
                 setSelectedCategory("all");
                 setSearchQuery("");
               }}
-              className="mt-4 rounded-xl bg-[#ca9029] text-white px-4 py-2 text-xs font-bold hover:bg-[#b57f22] cursor-pointer"
+              className="mt-4 rounded-xl bg-[#b03917] text-white px-4 py-2 text-xs font-bold hover:bg-[#8f2c0f] cursor-pointer"
             >
               Restablecer filtros
             </button>

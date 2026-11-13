@@ -209,7 +209,7 @@ export function VendorProfileForm({
         <Link
           href={`/vendedor/${slug || initialVendor.slug}`}
           target="_blank"
-          className="inline-flex items-center gap-1.5 rounded-xl border border-[#dfd2be] bg-white px-3.5 py-2 text-xs font-bold text-[#2e5e4e] hover:border-[#ca9029] hover:text-[#ca9029] transition-colors shrink-0 self-start"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#dfd2be] bg-white px-3.5 py-2 text-xs font-bold text-[#2e5e4e] hover:border-[#b03917] hover:text-[#b03917] transition-colors shrink-0 self-start"
         >
           <span>Ver mi tienda pública</span>
           <ExternalLink className="h-3.5 w-3.5" />
@@ -219,7 +219,7 @@ export function VendorProfileForm({
       {/* Assigned Owner & Store Info */}
       <div className="rounded-2xl border border-[#a8bca8]/60 bg-[#a8bca8]/15 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[#2e5e4e]">
         <div className="flex items-center gap-2">
-          <UserCheck className="h-4 w-4 text-[#ca9029] shrink-0" />
+          <UserCheck className="h-4 w-4 text-[#b03917] shrink-0" />
           <span>
             Vendedor: <strong>{ownerName || ownerEmail}</strong> ({ownerEmail})
           </span>
@@ -231,7 +231,7 @@ export function VendorProfileForm({
 
       {isSaved && (
         <div className="rounded-xl border border-[#a8bca8] bg-[#a8bca8]/25 p-4 text-sm font-semibold text-[#2e5e4e] flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-[#ca9029] shrink-0" />
+          <Sparkles className="h-4 w-4 text-[#b03917] shrink-0" />
           <span>¡Perfil y configuración de WhatsApp guardados correctamente!</span>
         </div>
       )}
@@ -247,7 +247,7 @@ export function VendorProfileForm({
         {/* Core Store Data & WhatsApp */}
         <div className="rounded-2xl border border-[#dfd2be] bg-[#fdfbf6] p-6 shadow-xs space-y-5">
           <div className="flex items-center gap-2 text-[#5d3805] font-bold text-sm border-b border-[#dfd2be] pb-3">
-            <Store className="h-4 w-4 text-[#ca9029]" />
+            <Store className="h-4 w-4 text-[#b03917]" />
             <span>Datos Generales de la Tienda</span>
           </div>
 
@@ -361,7 +361,7 @@ export function VendorProfileForm({
                 setIsSaved(false);
               }}
               placeholder="Cuéntale a tus clientes sobre tus productos, métodos de entrega y horarios de atención..."
-              className="w-full rounded-xl border border-[#dfd2be] bg-white p-3 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#ca9029]"
+              className="w-full rounded-xl border border-[#dfd2be] bg-white p-3 text-sm text-[#373737] placeholder:text-[#373737]/45 focus:outline-none focus:ring-2 focus:ring-[#b03917]"
             />
           </div>
         </div>
@@ -393,12 +393,12 @@ export function VendorProfileForm({
                   onClick={() => !isUploadingLogo && logoInputRef.current?.click()}
                   className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer min-h-[170px] ${
                     isUploadingLogo
-                      ? "border-[#ca9029] bg-[#ca9029]/10 cursor-wait"
-                      : "border-[#dfd2be] bg-white/70 hover:border-[#ca9029] hover:bg-[#f1e7d5]/30"
+                      ? "border-[#b03917] bg-[#b03917]/10 cursor-wait"
+                      : "border-[#dfd2be] bg-white/70 hover:border-[#b03917] hover:bg-[#f1e7d5]/30"
                   }`}
                 >
                   {isUploadingLogo ? (
-                    <div className="flex flex-col items-center space-y-2 text-[#ca9029] text-center">
+                    <div className="flex flex-col items-center space-y-2 text-[#b03917] text-center">
                       <Loader2 className="h-8 w-8 animate-spin" />
                       <p className="font-bold text-sm">Subiendo logotipo a Cloudinary...</p>
                       <p className="text-xs text-[#373737]/70">
@@ -407,7 +407,7 @@ export function VendorProfileForm({
                     </div>
                   ) : (
                     <div className="flex flex-col items-center space-y-2 text-center">
-                      <div className="h-11 w-11 rounded-2xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+                      <div className="h-11 w-11 rounded-2xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
                         <UploadCloud className="h-5 w-5" />
                       </div>
                       <p className="font-bold text-sm text-[#5d3805]">
@@ -432,7 +432,7 @@ export function VendorProfileForm({
                       <button
                         type="button"
                         onClick={() => logoInputRef.current?.click()}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#ca9029] hover:text-[#b57f22] hover:underline cursor-pointer"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#b03917] hover:text-[#8f2c0f] hover:underline cursor-pointer"
                       >
                         <UploadCloud className="h-3.5 w-3.5" />
                         Cambiar
@@ -502,12 +502,12 @@ export function VendorProfileForm({
                   }
                   className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer min-h-[170px] ${
                     isUploadingBanner
-                      ? "border-[#ca9029] bg-[#ca9029]/10 cursor-wait"
-                      : "border-[#dfd2be] bg-white/70 hover:border-[#ca9029] hover:bg-[#f1e7d5]/30"
+                      ? "border-[#b03917] bg-[#b03917]/10 cursor-wait"
+                      : "border-[#dfd2be] bg-white/70 hover:border-[#b03917] hover:bg-[#f1e7d5]/30"
                   }`}
                 >
                   {isUploadingBanner ? (
-                    <div className="flex flex-col items-center space-y-2 text-[#ca9029] text-center">
+                    <div className="flex flex-col items-center space-y-2 text-[#b03917] text-center">
                       <Loader2 className="h-8 w-8 animate-spin" />
                       <p className="font-bold text-sm">Subiendo banner a Cloudinary...</p>
                       <p className="text-xs text-[#373737]/70">
@@ -516,7 +516,7 @@ export function VendorProfileForm({
                     </div>
                   ) : (
                     <div className="flex flex-col items-center space-y-2 text-center">
-                      <div className="h-11 w-11 rounded-2xl bg-[#ca9029]/15 text-[#ca9029] flex items-center justify-center">
+                      <div className="h-11 w-11 rounded-2xl bg-[#b03917]/15 text-[#b03917] flex items-center justify-center">
                         <UploadCloud className="h-5 w-5" />
                       </div>
                       <p className="font-bold text-sm text-[#5d3805]">
@@ -541,7 +541,7 @@ export function VendorProfileForm({
                       <button
                         type="button"
                         onClick={() => bannerInputRef.current?.click()}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#ca9029] hover:text-[#b57f22] hover:underline cursor-pointer"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#b03917] hover:text-[#8f2c0f] hover:underline cursor-pointer"
                       >
                         <UploadCloud className="h-3.5 w-3.5" />
                         Cambiar
