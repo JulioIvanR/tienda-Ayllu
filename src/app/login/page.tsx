@@ -131,24 +131,6 @@ export default function LoginPage() {
                 </>
               )}
             </button>
-
-            {/* Demo Credentials */}
-            <div className="rounded-xl bg-[#a8bca8]/15 border border-[#a8bca8]/30 p-4">
-              <p className="text-xs font-semibold text-[#2e5e4e] mb-2">
-                📝 Credenciales de Prueba:
-              </p>
-              <div className="space-y-1 text-xs text-[#373737]/80">
-                <p>
-                  <strong>Super Admin:</strong> admin@comunidadilumina.com
-                </p>
-                <p>
-                  <strong>Vendor:</strong> info@comunidadilumina.com
-                </p>
-                <p>
-                  <strong>Contraseña:</strong> Aguila&amp;Condor2026
-                </p>
-              </div>
-            </div>
           </form>
 
           {/* Footer */}
